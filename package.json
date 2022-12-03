@@ -1,0 +1,17 @@
+{
+  "name": "hostel-management-website",
+  "version": "1.0.0",
+  "description": "Hostel Management Website",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anuj Ramane",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase": "^9.14.0",
+    "nodemon": "^2.0.20"
+  }
+}
