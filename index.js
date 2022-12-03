@@ -10,10 +10,10 @@ app.listen(process.env.PORT || 3000, function () {
 
 app.get("/", async (req, res) => {
     res.send("It's working!");
-    const userData = {
-        name: "Anuj Ramane",
-        age: 19,
-        isStaying: true
-    };
-    addStudent(userData);
+    // const userData = {
+    //     name: "Anuj Ramane",
+    //     age: 19,
+    //     isStaying: true
+    // };
+    // addStudent(userData);
 });
