@@ -7,7 +7,6 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('html'));
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Server started at port 3000");
