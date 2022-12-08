@@ -1,3 +1,7 @@
+:root {
+    --primary: #FF9E9E
+}
+
 body {
     background-color: #fbfbfb;
 }
@@ -40,4 +44,23 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     /* Scrollable contents if viewport is shorter than content. */
+}
+
+/* Custom classes */
+
+h1 {
+    font-size: 25px;
+}
+
+.white-text {
+    color: white;
+}
+
+.total-students-container {
+    background-color: var(--primary);
+    border-radius: 10px;
+}
+
+.tab_padding {
+    padding-top: 40px
 }
