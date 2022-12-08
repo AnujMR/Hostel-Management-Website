@@ -1,9 +1,11 @@
 :root {
-    --primary: #FF9E9E
+    --primary: #FF9E9E;
+    --primarylight: rgba(255, 209, 209, 1)
 }
 
 body {
     background-color: #fbfbfb;
+    font-family: 'Poppins';
 }
 
 @media (min-width: 991.98px) {
@@ -46,10 +48,24 @@ body {
     /* Scrollable contents if viewport is shorter than content. */
 }
 
-/* Custom classes */
+/* Dashboard Module */
 
 h1 {
-    font-size: 25px;
+    font-size: 26px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.screen-padding {
+    padding: 2rem 3rem;
 }
 
 .white-text {
@@ -58,9 +74,135 @@ h1 {
 
 .total-students-container {
     background-color: var(--primary);
+    height: min-content;
+    padding: 10px 20px;
+    margin-top: 30px;
     border-radius: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
-.tab_padding {
-    padding-top: 40px
+/* Rooms Module */
+
+.floor {
+    background-color: white;
+    width: 60%;
+    height: min-content;
+    border-radius: 10px;
+    border: 2px solid #D9D9D9;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+.room-top {
+    width: 3rem;
+    height: 3rem;
+    border-left: 2px solid #D9D9D9;
+    border-right: 2px solid #D9D9D9;
+    border-bottom: 2px solid #D9D9D9;
+    border-radius: 0 0 10px 10px;
+    background-color: #FBFBFB;
+    margin: 0px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.room-bottom {
+    width: 3rem;
+    height: 3rem;
+    border-left: 2px solid #D9D9D9;
+    border-right: 2px solid #D9D9D9;
+    border-top: 2px solid #D9D9D9;
+    border-radius: 10px 10px 0 0;
+    background-color: #FBFBFB;
+    margin: 40px 20px 0px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.room-top.available {
+    border-left: 2px solid #16EB5E;
+    border-right: 2px solid #16EB5E;
+    border-bottom: 2px solid #16EB5E;
+    background-color: #CDFBDC;
+}
+
+
+.room-bottom.available {
+    border-left: 2px solid #16EB5E;
+    border-right: 2px solid #16EB5E;
+    border-top: 2px solid #16EB5E;
+    background-color: #CDFBDC;
+}
+
+.room-top.available:hover {
+    border-left: 2px solid #13c34e;
+    border-right: 2px solid #13c34e;
+    border-bottom: 2px solid #13c34e;
+    background-color: #acf6c5;
+}
+
+.room-bottom.available:hover {
+    border-left: 2px solid #13c34e;
+    border-right: 2px solid #13c34e;
+    border-top: 2px solid #13c34e;
+    background-color: #acf6c5;
+}
+
+.floor-text {
+    font-weight: 600;
+    padding-left: 15px;
+    padding-bottom: 10px;
+    margin-top: 3rem;
+}
+
+.vol-ctr {
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Circular Progress Bar */
+@keyframes growProgressBar {
+
+    0%,
+    33% {
+        --pgPercentage: 0;
+    }
+
+    100% {
+        --pgPercentage: var(--value);
+    }
+}
+
+@property --pgPercentage {
+    syntax: '<number>';
+    inherits: false;
+    initial-value: 0;
+}
+
+div[role="progressbar"] {
+    --size: 10rem;
+    --fg: #7230FF;
+    --textcolor: #000;
+    --bg: #def;
+    --pgPercentage: var(--value);
+    animation: growProgressBar 3s 1 forwards;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background:
+        radial-gradient(closest-side, white 80%, transparent 0 99.9%, white 0),
+        conic-gradient(var(--fg) calc(var(--pgPercentage) * 1%), var(--bg) 0);
+    font-family: 'Poppins';
+    font-size: calc(var(--size) / 6);
+    color: var(--textcolo);
+}
+
+div[role="progressbar"]::before {
+    counter-reset: percentage var(--value);
+    /* content: counter(percentage) '%'; */
 }
