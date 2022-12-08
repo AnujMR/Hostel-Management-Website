@@ -10,7 +10,16 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/public/css/bootstrap-4.0.0-dist/css/bootstrap.css">
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
     <link rel="stylesheet" href="/public/css/styles.css">
+
 
 </head>
 
@@ -21,17 +30,17 @@
             <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
-                        <p class="list-group-item list-group-item-action  py-2 ripple tab_padding" id="profile_tab">
-                            <i class="fas fa-chart-area fa-fw me-3"></i><span>Profile</span>
+                        <p class="list-group-item list-group-item-action py-6 ripple" id="profile_tab">
+                            <i class="fas fa-chart-area fa-fw me-6"></i><span>Profile</span>
                         </p>
-                        <p class="list-group-item list-group-item-action  py-2 ripple active tab_padding"
-                            id="dashboard_tab"><i class="fas fa-lock fa-fw me-3"></i><span>Dashboard</span></p>
-                        <p class="list-group-item list-group-item-action  py-2 ripple tab_padding" id="rooms_tab"><i
+                        <p class="list-group-item list-group-item-action  py-6 ripple active" id="dashboard_tab"><i
+                                class="fas fa-lock fa-fw me-6"></i><span>Dashboard</span></p>
+                        <p class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
                                 class="fas fa-chart-line fa-fw me-3"></i><span>Rooms</span></p>
-                        <p class="list-group-item list-group-item-action py-2 ripple tab_padding" id="students_tab">
+                        <p class="list-group-item list-group-item-action py-6 ripple" id="students_tab">
                             <i class="fas fa-chart-pie fa-fw me-3"></i><span>Students</span>
                         </p>
-                        <p class="list-group-item list-group-item-action py-2 ripple tab_padding" id="staff_tab"><i
+                        <p class="list-group-item list-group-item-action py-6 ripple" id="staff_tab"><i
                                 class="fas fa-chart-bar fa-fw me-3"></i><span>Staff</span></a>
                     </div>
                 </div>
@@ -39,11 +48,26 @@
             <!-- Sidebar -->
 
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10 screen-padding">
             <!--Main layout-->
+            <h1 style="padding-bottom: 1rem;">Dashboard</h1>
             <div class="row">
-                <div class="total-students-container col-md-4">
-                    <h1 class="white-text">Total Students</h1>
+                <div style="margin-right: 3rem;">
+                    <div id="circular-progress" class="my-auto" role="progressbar" aria-valuenow="3" aria-valuemin="0"
+                        aria-valuemax="100" style="--value: 0">
+                        25/30
+                    </div>
+                    <h3 class="text-center" style="margin-top: 10px;">Rooms Occupied</h3>
+                </div>
+
+                <div class="total-students-container col-md-2">
+                    <h2 class="white-text">Total Students</h2>
+                    <h1 class="white-text">150</h1>
+                </div>
+
+                <div class="total-students-container col-md-2" style="background-color: #FFD458; margin-left: 3rem;">
+                    <h2 class="white-text">Total Staff</h2>
+                    <h1 class="white-text">45</h1>
                 </div>
 
             </div>
@@ -63,6 +87,7 @@
         crossorigin="anonymous"></script>
 
     <script src="/public/js/navbar.js"></script>
+    <script src="/public/js/circular_progress_bar.js"></script>
 </body>
 
 </html>

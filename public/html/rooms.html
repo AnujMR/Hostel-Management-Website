@@ -10,6 +10,13 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/public/css/bootstrap-4.0.0-dist/css/bootstrap.css">
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
     <link rel="stylesheet" href="/public/css/styles.css">
 
 </head>
@@ -21,17 +28,17 @@
             <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
-                        <p class="list-group-item list-group-item-action  py-2 ripple " id="profile_tab">
-                            <i class="fas fa-chart-area fa-fw me-3"></i><span>Profile</span>
+                        <p class="list-group-item list-group-item-action py-6 ripple" id="profile_tab">
+                            <i class="fas fa-chart-area fa-fw me-6"></i><span>Profile</span>
                         </p>
-                        <p class="list-group-item list-group-item-action  py-2 ripple " id="dashboard_tab"><i
-                                class="fas fa-lock fa-fw me-3"></i><span>Dashboard</span></p>
-                        <p class="list-group-item list-group-item-action  py-2 ripple active" id="rooms_tab"><i
+                        <p class="list-group-item list-group-item-action  py-6 ripple " id="dashboard_tab"><i
+                                class="fas fa-lock fa-fw me-6"></i><span>Dashboard</span></p>
+                        <p class="list-group-item list-group-item-action  py-6 ripple active" id="rooms_tab"><i
                                 class="fas fa-chart-line fa-fw me-3"></i><span>Rooms</span></p>
-                        <p class="list-group-item list-group-item-action py-2 ripple" id="students_tab">
+                        <p class="list-group-item list-group-item-action py-6 ripple" id="students_tab">
                             <i class="fas fa-chart-pie fa-fw me-3"></i><span>Students</span>
                         </p>
-                        <p class="list-group-item list-group-item-action py-2 ripple" id="staff_tab"><i
+                        <p class="list-group-item list-group-item-action py-6 ripple" id="staff_tab"><i
                                 class="fas fa-chart-bar fa-fw me-3"></i><span>Staff</span></a>
                     </div>
                 </div>
@@ -39,19 +46,84 @@
             <!-- Sidebar -->
 
         </div>
-        <div class="col-md-10">
-            <!--Main layout-->
-            <main style="margin-top: 58px;">
-                <div class="container pt-4">
-
-                    Rooms
-                    Place your content here!
-
-
+        <div class="col-md-10 screen-padding">
+            <h1 style="padding-bottom: 1rem;">Rooms</h1>
+            <div>
+                <h2 class="floor-text">Floor 3</h2>
+                <div class="floor">
+                    <div class="row vol-ctr">
+                        <div class="room-top">301</div>
+                        <div class="room-top">302</div>
+                        <div class="room-top available">303</div>
+                        <div class="room-top available">304</div>
+                        <div class="room-top available">305</div>
+                    </div>
+                    <div class="row vol-ctr">
+                        <div class="room-bottom">306</div>
+                        <div class="room-bottom">307</div>
+                        <div class="room-bottom">308</div>
+                        <div class="room-bottom">309</div>
+                    </div>
                 </div>
-            </main>
-            <!--Main layout-->
+            </div>
+            <div>
+                <h2 class="floor-text">Floor 2</h2>
+                <div class="floor">
+                    <div class="row vol-ctr">
+                        <div class="room-top available">201</div>
+                        <div class="room-top">202</div>
+                        <div class="room-top ">203</div>
+                        <div class="room-top ">204</div>
+                        <div class="room-top ">205</div>
+                    </div>
+                    <div class="row vol-ctr">
+                        <div class="room-bottom">206</div>
+                        <div class="room-bottom">207</div>
+                        <div class="room-bottom available">208</div>
+                        <div class="room-bottom">209</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="floor-text">Floor 1</h2>
+                <div class="floor">
+                    <div class="row vol-ctr">
+                        <div class="room-top">101</div>
+                        <div class="room-top available">102</div>
+                        <div class="room-top ">103</div>
+                        <div class="room-top ">104</div>
+                        <div class="room-top ">105</div>
+                    </div>
+                    <div class="row vol-ctr">
+                        <div class="room-bottom">106</div>
+                        <div class="room-bottom">107</div>
+                        <div class="room-bottom">108</div>
+                        <div class="room-bottom">109</div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="floor-text">Ground Floor</h2>
+                <div class="floor">
+                    <div class="row vol-ctr">
+                        <div class="room-top">001</div>
+                        <div class="room-top">002</div>
+                        <div class="room-top ">003</div>
+                        <div class="room-top ">004</div>
+                        <div class="room-top available">005</div>
+                    </div>
+                    <div class="row vol-ctr">
+                        <div class="room-bottom available">006</div>
+                        <div class="room-bottom available">007</div>
+                        <div class="room-bottom">008</div>
+                        <div class="room-bottom">009</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+        <!--Main layout-->
     </div>
 
 
