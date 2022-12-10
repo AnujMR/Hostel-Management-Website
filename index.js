@@ -1,5 +1,5 @@
 import express from "express";
-import { addStudent } from "./firebase_config.js";
+import { addStudent, getStudents } from "./firebase_config.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -14,25 +14,26 @@ app.listen(process.env.PORT || 3000, function () {
 });
 
 app.get("/", async (req, res) => {
-    res.sendFile(__dirname + "/public/html/dashboard.html");
+    res.redirect("/public/html/dashboard.html");
 });
 
 app.get("/dashboard.html", async (req, res) => {
-    res.sendFile(__dirname + "/public/html/dashboard.html");
+    res.redirect("/public/html/dashboard.html");
 });
 
 app.get("/profile.html", async (req, res) => {
-    res.sendFile(__dirname + "/public/html/profile.html");
+    res.redirect("/public/html/profile.html");
 });
 
 app.get("/rooms.html", async (req, res) => {
-    res.sendFile(__dirname + "/public/html/rooms.html");
+    res.redirect("/public/html/rooms.html");
 });
 
 app.get("/students.html", async (req, res) => {
-    res.sendFile(__dirname + "/public/html/students.html");
+    var response = getStudents();
+    res.redirect("/public/html/students.html");
 });
 
 app.get("/staff.html", async (req, res) => {
-    res.sendFile(__dirname + "/public/html/staff.html");
+    res.redirect("/public/html/staff.html");
 });
