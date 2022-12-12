@@ -30,12 +30,15 @@ app.get("/rooms.html", async (req, res) => {
     res.redirect("/public/html/rooms.html");
 });
 
-app.get("/students.html", async (req, res) => {
-    var response = getStudents();
-    res.redirect("/public/html/students.html");
+app.get("/students", async (req, res) => {
+    var studentList = await getStudents();
+    console.log(studentList);
+    res.render("students", {
+        allStudents: studentList
+    });
 });
 
-app.get("/studentDetails.html", async (req, res) => {
+app.get("/studentDetails", async (req, res) => {
     res.render("studentDetails");
 });
 

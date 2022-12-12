@@ -16,7 +16,7 @@
 // $('#students_tab').on('click', async function () {
 //     // console.log("Hi");
 //     // var response = await getStudents();
-//     location.replace('/public/html/students.html');
+//     location.replace('/public/html/students');
 // });
 
 // $('#staff_tab').on('click', function () {

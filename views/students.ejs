@@ -41,7 +41,7 @@
                         <a href="/rooms.html" class="list-group-item list-group-item-action  py-6 ripple"
                             id="rooms_tab"><i class="fa-solid fa-building"
                                 style="margin-right: 15px;"></i><span>Rooms</span></a>
-                        <a href="/students.html" class="list-group-item list-group-item-action py-6 ripple active"
+                        <a href="/students" class="list-group-item list-group-item-action py-6 ripple active"
                             id="students_tab">
                             <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
                         </a>
@@ -65,45 +65,51 @@
                         Search</button>
                 </div>
             </form>
-            <div class="student-tile">
-                <div class="container student-tile-content" style="justify-content: space-between;">
-                    <div class="container student-tile-content">
-                        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
-                            style="width: 4rem;" alt="Avatar" />
-                        <div class="container" style="display: flex; flex-direction: column; align-items:flex-start;">
-                            <h2 class="student-name">Anuj Ramane</h2>
-                            <h2 class="id-number">F22001</h2>
+            <% for(var i=0; i < allStudents.length; i++){ %>
+                <div class="student-tile">
+                    <div class="container student-tile-content" style="justify-content: space-between;">
+                        <div class="container student-tile-content">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
+                                style="width: 4rem;" alt="Avatar" />
+                            <div class="container"
+                                style="display: flex; flex-direction: column; align-items:flex-start;">
+                                <h2 class="student-name">
+                                    <%= allStudents[i]["name"] %>
+                                </h2>
+                                <h2 class="id-number">F22001</h2>
+                            </div>
                         </div>
+                        <a href="/studentDetails" style="color: black;">
+                            <div class="btn view-details-btn">
+                                <h2 style="font-size: 16px; text-align: center;">View Details</h2>
+                            </div>
+                        </a>
+
                     </div>
-                    <a href="/studentDetails.html" style="color: black;">
-                        <div class="btn view-details-btn">
-                            <h2 style="font-size: 16px; text-align: center;">View Details</h2>
-                        </div>
-                    </a>
-
                 </div>
-            </div>
-            <div class="student-tile">
-                <div class="container student-tile-content" style="justify-content: space-between;">
-                    <div class="container student-tile-content">
-                        <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
-                            style="width: 4rem;" alt="Avatar" />
-                        <div class="container" style="display: flex; flex-direction: column; align-items:flex-start;">
-                            <h2 class="student-name">Anuj Ramane</h2>
-                            <h2 class="id-number">F22001</h2>
-                        </div>
-                    </div>
-                    <a href="/studentDetails.html" style="color: black;">
-                        <div class="btn view-details-btn">
-                            <h2 style="font-size: 16px; text-align: center;">View Details</h2>
-                        </div>
-                    </a>
+                <% } %>
+                    <!-- <div class="student-tile">
+                            <div class="container student-tile-content" style="justify-content: space-between;">
+                                <div class="container student-tile-content">
+                                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
+                                        style="width: 4rem;" alt="Avatar" />
+                                    <div class="container"
+                                        style="display: flex; flex-direction: column; align-items:flex-start;">
+                                        <h2 class="student-name">Anuj Ramane</h2>
+                                        <h2 class="id-number">F22001</h2>
+                                    </div>
+                                </div>
+                                <a href="/studentDetails" style="color: black;">
+                                    <div class="btn view-details-btn">
+                                        <h2 style="font-size: 16px; text-align: center;">View Details</h2>
+                                    </div>
+                                </a>
 
 
-                </div>
-            </div>
+                            </div>
+                        </div> -->
 
-            <!--Main layout-->
+                    <!--Main layout-->
         </div>
     </div>
 

@@ -29,7 +29,7 @@ export async function getStudents() {
         const studentsCol = collection(db, 'students');
         const studentSnapshot = await getDocs(studentsCol);
         const studentList = studentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        console.log(studentList);
+        // console.log(studentList);
         console.log("Students fetched successfully");
         return studentList;
     } catch (e) {
