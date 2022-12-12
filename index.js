@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static('public'));
+app.set("view engine", "ejs");
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Server started at port 3000");
@@ -32,6 +33,10 @@ app.get("/rooms.html", async (req, res) => {
 app.get("/students.html", async (req, res) => {
     var response = getStudents();
     res.redirect("/public/html/students.html");
+});
+
+app.get("/studentDetails.html", async (req, res) => {
+    res.render("studentDetails");
 });
 
 app.get("/staff.html", async (req, res) => {

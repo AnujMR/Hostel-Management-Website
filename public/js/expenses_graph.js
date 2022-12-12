@@ -31,7 +31,7 @@ anychart.onDocumentReady(function () {
     // chart.legend().enabled(true);
 
     // // add a title
-    // chart.title("Big Three's Grand Slam Title Race");
+    // chart.title("Monthly Expenses");
 
     // specify where to display the chart
     chart.container("expense-graph");

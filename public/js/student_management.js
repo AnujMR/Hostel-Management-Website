@@ -1,6 +1,6 @@
-$(".view-details-btn").on("click", function () {
-    location.assign("/public/html/studentDetails.html");
-});
+// $(".view-details-btn").on("click", function () {
+//     location.assign("/public/html/studentDetails.html");
+// });
 
 export function searchStudent(queryText, studentList) {
     var i = 0;
