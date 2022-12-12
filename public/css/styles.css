@@ -1,7 +1,8 @@
 :root {
     --primary: #FF9E9E;
     --primarydark: #f66c6c;
-    --primarylight: rgba(255, 209, 209, 1)
+    --primarylight: rgba(255, 209, 209, 1);
+    --greylight: #D9D9D9;
 }
 
 body {
@@ -80,6 +81,15 @@ h3 {
     margin-top: 30px;
     border-radius: 10px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+#expense-graph {
+    width: 55%;
+    height: 60%;
+    margin-top: 2rem;
+    padding: 0;
+    background-color: white;
+    border-radius: 10px;
 }
 
 /* Rooms Module */
@@ -164,6 +174,35 @@ h3 {
     justify-content: space-around;
 }
 
+.vertical-divider {
+    width: 2px;
+    height: 50px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.rooms-info-box {
+    background-color: rgb(66, 155, 251);
+    border: 1.5px solid white;
+    box-shadow: rgba(41, 128, 227, 0.493) 0px 4px 12px;
+}
+
+.rooms-info-box-row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: white;
+}
+
+.rent-status {
+    background-color: #16EB5E;
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+    min-width: 14rem;
+    padding: 5px 10px;
+}
+
 /* Students Module */
 
 .search-btn {
@@ -223,6 +262,19 @@ h3 {
 
 .dropup .hide-toggle.dropdown-toggle::after {
     display: none !important;
+}
+
+.student-details-row {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.student-details-field {
+    text-align: center;
+    border: 1.5px solid grey;
+    border-radius: 5px;
+    padding: 5px 10px;
 }
 
 /* Floating Add Button*/
