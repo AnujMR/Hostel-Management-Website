@@ -10,7 +10,7 @@
 // });
 
 // $('#rooms_tab').on('click', function () {
-//     location.replace('/public/html/rooms.html');
+//     location.replace('/public/html/rooms');
 // });
 
 // $('#students_tab').on('click', async function () {

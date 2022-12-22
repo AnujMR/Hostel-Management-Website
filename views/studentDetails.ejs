@@ -39,9 +39,8 @@
                         <a href="/dashboard.html" class="list-group-item list-group-item-action  py-6 ripple"
                             id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
                                 style="margin-right: 15px;"></i><span>Dashboard</span></a>
-                        <a href="/rooms.html" class="list-group-item list-group-item-action  py-6 ripple"
-                            id="rooms_tab"><i class="fa-solid fa-building"
-                                style="margin-right: 15px;"></i><span>Rooms</span></a>
+                        <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
+                                class="fa-solid fa-building" style="margin-right: 15px;"></i><span>Rooms</span></a>
                         <a href="/students" class="list-group-item list-group-item-action py-6 ripple active"
                             id="students_tab">
                             <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
@@ -86,42 +85,44 @@
                         <!-- Name -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Name : </h2>
-                            <input type="text" name="nameData" id="nameField" value="Anuj Ramane"
-                                class="student-details-field">
+                            <input type="text" name="name" id="nameField" value=<%=studentData["name"]%>
+                            class="student-details-field">
                         </div>
 
                         <!-- DOB -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">DOB : </h2>
-                            <input type="text" name="dobData" id="dobField" value="22 - 09 - 2003"
-                                class="student-details-field">
+                            <input type="date" name="dob" id="dobField" value=<%=studentData["dob"]%>
+                            class="student-details-field" style="width: 225px;">
                         </div>
 
                         <!-- Room no -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Room No. : </h2>
-                            <input type="text" name="roomData" id="roomField" value="304" class="student-details-field">
+                            <input type="text" name="room" id="roomField" value=<%=studentData["room"] %>
+                            class="student-details-field">
                         </div>
 
                         <!-- Educational Institute -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Educational Institute : </h2>
-                            <input type="text" name="educationData" id="educationField"
-                                value="Vidyalankar Institute of Technology" class="student-details-field">
+                            <input type="text" name="institue" id="educationField" value=<%=studentData["institue"]%>
+                            class="student-details-field">
                         </div>
 
                         <!-- Mobile no -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Mobile No. : </h2>
-                            <input type="text" name="mobileData" id="mobileField" value="1010101010"
-                                class="student-details-field">
+                            <input type="text" maxlength="10" name="phone" id="mobileField"
+                                value=<%=studentData["phone"] %>
+                            class="student-details-field">
                         </div>
 
                         <!-- Email -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Email Id : </h2>
-                            <input type="text" name="emailData" id="emailField" value="anuj@gmail.com"
-                                class="student-details-field">
+                            <input type="text" name="email" id="emailField" value=<%=studentData["email"] %>
+                            class="student-details-field">
                         </div>
                     </div>
 
@@ -132,23 +133,31 @@
                         <!-- Address -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Home Address : </h2>
-                            <textarea name="addressData" id="addressField" cols="23" rows="5"
-                                class="student-details-field"
-                                style="text-align: start;">B-301, Ashok Apt., Sangam Nagar, Wadala</textarea>
+                            <textarea name="address" id="addressField" cols="23" rows="5" class="student-details-field"
+                                style="text-align: start;"><%=studentData["address"] %></textarea>
                         </div>
 
                         <!-- Emergency Contact -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Emergency Contact : </h2>
-                            <input type="text" name="emergencyData" id="emergencyField" value="1212121212"
-                                class="student-details-field">
+                            <input type="text" maxlength="10" name="emergencyContact" id="emergencyField"
+                                value=<%=studentData["emergencyContact"] %>
+                            class="student-details-field">
                         </div>
-                        <!-- Emergency Contact -->
+
+                        <!-- Rent Status -->
                         <div class="row student-details-row">
-                            <h2 style="margin-right: 2rem;">Emergency Contact : </h2>
-                            <div class="rent-status">
-                                PAID &nbsp ₹ 10,000
-                            </div>
+                            <h2 style="margin-right: 2rem;">Rent Status : </h2>
+
+                            <% if(studentData["rentStatus"]==="paid" ){%>
+                                <div class="rent-status" id="rent_status" style="background-color: #16EB5E;"> PAID
+                                </div>
+                                <%}else{%>
+                                    <div class="rent-status" id="rent_status" style="background-color: #fb2626;">
+                                        OVERDUE
+                                    </div>
+                                    <%}%>
+
                         </div>
 
                     </div>
@@ -171,6 +180,9 @@
         crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="/public/js/navbar.js"></script>
+
+    <script>
+    </script>
 </body>
 
 </html>

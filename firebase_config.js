@@ -15,6 +15,8 @@ const firebaseapp = initializeApp(firebaseConfig);
 
 const db = getFirestore(firebaseapp);
 
+// ** Student Module **
+
 export async function addStudent(studentData) {
     try {
         const docRef = await addDoc(collection(db, "students"), studentData);
@@ -33,6 +35,33 @@ export async function getStudents() {
         console.log("Students fetched successfully");
         return studentList;
     } catch (e) {
+        console.error("Error fetching students: ", e);
+    }
+}
+
+// ** Rooms Module **
+
+export async function addRoom(roomData) {
+    try {
+        const docRef = await addDoc(collection(db, "rooms"), roomData);
+        console.log("Room added successfully");
+        return { message: "Success" };
+    } catch (e) {
         console.error("Error adding document: ", e);
+        return { message: "Failed" };
+    }
+}
+
+
+export async function getRooms() {
+    try {
+        const roomsCol = collection(db, 'rooms');
+        const roomsSnapshot = await getDocs(roomsCol);
+        const roomsList = roomsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        // console.log(roomsList);
+        console.log("Rooms fetched successfully");
+        return roomsList;
+    } catch (e) {
+        console.error("Error fetching rooms: ", e);
     }
 }
