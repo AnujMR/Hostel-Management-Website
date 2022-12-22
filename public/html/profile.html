@@ -20,6 +20,9 @@
 
     <link rel="stylesheet" href="/public/css/styles.css">
 
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/7f212a760d.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -29,39 +32,68 @@
             <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
-                        <p class="list-group-item list-group-item-action py-6 ripple active" id="profile_tab">
-                            <i class="fas fa-chart-area fa-fw me-6"></i><span>Profile</span>
-                        </p>
-                        <p class="list-group-item list-group-item-action  py-6 ripple" id="dashboard_tab"><i
-                                class="fas fa-lock fa-fw me-6"></i><span>Dashboard</span></p>
-                        <p class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
-                                class="fas fa-chart-line fa-fw me-3"></i><span>Rooms</span></p>
-                        <p class="list-group-item list-group-item-action py-6 ripple" id="students_tab">
-                            <i class="fas fa-chart-pie fa-fw me-3"></i><span>Students</span>
-                        </p>
-                        <p class="list-group-item list-group-item-action py-6 ripple" id="staff_tab"><i
-                                class="fas fa-chart-bar fa-fw me-3"></i><span>Staff</span></a>
+                        <a href="/profile.html" class="list-group-item list-group-item-action py-6 ripple active"
+                            id="profile_tab">
+                            <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
+                        </a>
+                        <a href="/dashboard.html" class="list-group-item list-group-item-action  py-6 ripple"
+                            id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
+                                style="margin-right: 15px;"></i><span>Dashboard</span></a>
+                        <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
+                                class="fa-solid fa-building" style="margin-right: 15px;"></i><span>Rooms</span></a>
+                        <a href="/students" class="list-group-item list-group-item-action py-6 ripple"
+                            id="students_tab">
+                            <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
+                        </a>
+                        <a href="/staff.html" class="list-group-item list-group-item-action py-6 ripple"
+                            id="staff_tab"><i class="fa-solid fa-users"
+                                style="margin-right: 15px;"></i><span>Staff</span></a>
                     </div>
                 </div>
             </nav>
             <!-- Sidebar -->
 
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10 screen-padding">
             <!--Main layout-->
-            <main style="margin-top: 58px;">
-                <div class="container pt-4">
+            <div class="mainDiv">
+                <div class="cardStyle">
+                    <form action="" method="post" name="profile" id="profile">
+                        <h2 class="formTitle">
+                            Profile
+                        </h2>
 
-                    Profile
-                    Place your content here!
+                        <div class="inputDiv">
+                            <label class="inputLabel" for="password">Change Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+
+                        <div class="inputDiv">
+                            <label class="inputLabel" for="hostel-name">Hostel Name</label>
+                            <input type="hostel-name" id="hostelname" name="hostel-name">
+                        </div>
+
+                        <div class="inputDiv">
+                            <label class="inputLabel" for="total-rooms">Total Rooms</label>
+                            <input type="totalrooms" id="totalrooms" name="total-rooms">
+                        </div>
+
+                        <div class="inputDiv">
+                            <label class="inputLabel" for="address">Address</label>
+                            <input type="address" id="address" name="address">
+                        </div>
 
 
+                    </form>
                 </div>
-            </main>
-            <!--Main layout-->
-        </div>
-    </div>
+            </div>
 
+        </div>
+        </main>
+        <!--Main layout-->
+
+    </div>
+    </div>
 
 
 

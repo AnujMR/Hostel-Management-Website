@@ -1,23 +1,25 @@
-
+// import { getStudents } from "../../firebase_config";
 // Navigations
 
-$('#profile_tab').on('click', function () {
-    location.replace('/public/html/profile.html');
-});
+// $('#profile_tab').on('click', function () {
+//     location.replace('/public/html/profile.html');
+// });
 
-$('#dashboard_tab').on('click', function () {
-    location.replace('/public/html/dashboard.html');
-});
+// $('#dashboard_tab').on('click', function () {
+//     location.replace('/public/html/dashboard.html');
+// });
 
-$('#rooms_tab').on('click', function () {
-    location.replace('/public/html/rooms.html');
-});
+// $('#rooms_tab').on('click', function () {
+//     location.replace('/public/html/rooms');
+// });
 
-$('#students_tab').on('click', function () {
-    location.replace('/public/html/students.html');
-});
+// $('#students_tab').on('click', async function () {
+//     // console.log("Hi");
+//     // var response = await getStudents();
+//     location.replace('/public/html/students');
+// });
 
-$('#staff_tab').on('click', function () {
-    location.replace('/public/html/staff.html');
-});
+// $('#staff_tab').on('click', function () {
+//     location.replace('/public/html/staff.html');
+// });
 

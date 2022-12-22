@@ -17,6 +17,11 @@
         href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
 
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/7f212a760d.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/public/css/styles.css">
 
@@ -30,18 +35,22 @@
             <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
-                        <p class="list-group-item list-group-item-action py-6 ripple" id="profile_tab">
-                            <i class="fas fa-chart-area fa-fw me-6"></i><span>Profile</span>
-                        </p>
-                        <p class="list-group-item list-group-item-action  py-6 ripple active" id="dashboard_tab"><i
-                                class="fas fa-lock fa-fw me-6"></i><span>Dashboard</span></p>
-                        <p class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
-                                class="fas fa-chart-line fa-fw me-3"></i><span>Rooms</span></p>
-                        <p class="list-group-item list-group-item-action py-6 ripple" id="students_tab">
-                            <i class="fas fa-chart-pie fa-fw me-3"></i><span>Students</span>
-                        </p>
-                        <p class="list-group-item list-group-item-action py-6 ripple" id="staff_tab"><i
-                                class="fas fa-chart-bar fa-fw me-3"></i><span>Staff</span></a>
+                        <a href="/profile.html" class="list-group-item list-group-item-action py-6 ripple"
+                            id="profile_tab">
+                            <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
+                        </a>
+                        <a href="/dashboard.html" class="list-group-item list-group-item-action  py-6 ripple active"
+                            id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
+                                style="margin-right: 15px;"></i><span>Dashboard</span></a>
+                        <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
+                                class="fa-solid fa-building" style="margin-right: 15px;"></i><span>Rooms</span></a>
+                        <a href="/students" class="list-group-item list-group-item-action py-6 ripple"
+                            id="students_tab">
+                            <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
+                        </a>
+                        <a href="/staff.html" class="list-group-item list-group-item-action py-6 ripple"
+                            id="staff_tab"><i class="fa-solid fa-users"
+                                style="margin-right: 15px;"></i><span>Staff</span></a>
                     </div>
                 </div>
             </nav>
@@ -69,7 +78,10 @@
                     <h2 class="white-text">Total Staff</h2>
                     <h1 class="white-text">45</h1>
                 </div>
+            </div>
 
+            <div id="expense-graph">
+                <h2 style="font-weight: 500; padding: 20px;">Monthly Expenses (In Rupees)</h2>
             </div>
             <!--Main layout-->
         </div>
@@ -88,6 +100,7 @@
 
     <script src="/public/js/navbar.js"></script>
     <script src="/public/js/circular_progress_bar.js"></script>
+    <script src="/public/js/expenses_graph.js"></script>
 </body>
 
 </html>

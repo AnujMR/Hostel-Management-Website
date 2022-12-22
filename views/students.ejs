@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/public/css/bootstrap-4.0.0-dist/css/bootstrap.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/public/css/styles.css">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/7f212a760d.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+
+    <div class="row">
+        <div class="col-md-2">
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+                <div class="position-sticky">
+                    <div class="list-group list-group-flush mx-3 mt-4">
+                        <a href="/profile.html" class="list-group-item list-group-item-action py-6 ripple"
+                            id="profile_tab">
+                            <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
+                        </a>
+                        <a href="/dashboard.html" class="list-group-item list-group-item-action  py-6 ripple"
+                            id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
+                                style="margin-right: 15px;"></i><span>Dashboard</span></a>
+                        <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
+                                class="fa-solid fa-building" style="margin-right: 15px;"></i><span>Rooms</span></a>
+                        <a href="/students" class="list-group-item list-group-item-action py-6 ripple active"
+                            id="students_tab">
+                            <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
+                        </a>
+                        <a href="/staff.html" class="list-group-item list-group-item-action py-6 ripple"
+                            id="staff_tab"><i class="fa-solid fa-users"
+                                style="margin-right: 15px;"></i><span>Staff</span></a>
+                    </div>
+                </div>
+            </nav>
+            <!-- Sidebar -->
+
+        </div>
+        <div class="col-md-10 screen-padding">
+            <!--Main layout-->
+
+            <h1 style="padding-bottom: 1rem;">Students</h1>
+
+            <form action="" class="">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control form-control-lg" placeholder="Search Student">
+                    <button type="submit" class="input-group-text search-btn"><i class="bi bi-search me-2"></i>
+                        Search</button>
+                </div>
+            </form>
+            <% for(var i=0; i < allStudents.length; i++){ %>
+                <div class="student-tile">
+                    <div class="container student-tile-content" style="justify-content: space-between;">
+                        <div class="container student-tile-content">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
+                                style="width: 4rem;" alt="Avatar" />
+                            <div class="container"
+                                style="display: flex; flex-direction: column; align-items:flex-start;">
+                                <h2 class="student-name">
+                                    <%= allStudents[i]["name"] %>
+                                </h2>
+                                <h2 class="id-number">F22001</h2>
+                            </div>
+                        </div>
+                        <form id=<%=allStudents[i]['id']%> action="/studentDetails" method="post">
+                            <input class="view-details-btn" type="submit" value="View Details"
+                                style="font-size: 16px; text-align: center;">
+                            <input type="text" style="visibility: hidden;  display: none;" name="studentId"
+                                value=<%=allStudents[i]["id"] %>>
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+                    <!-- <div class="student-tile">
+                            <div class="container student-tile-content" style="justify-content: space-between;">
+                                <div class="container student-tile-content">
+                                    <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
+                                        style="width: 4rem;" alt="Avatar" />
+                                    <div class="container"
+                                        style="display: flex; flex-direction: column; align-items:flex-start;">
+                                        <h2 class="student-name">Anuj Ramane</h2>
+                                        <h2 class="id-number">F22001</h2>
+                                    </div>
+                                </div>
+                                <a href="/studentDetails" style="color: black;">
+                                    <div class="btn view-details-btn">
+                                        <h2 style="font-size: 16px; text-align: center;">View Details</h2>
+                                    </div>
+                                </a>
+
+
+                            </div>
+                        </div> -->
+
+
+                    <!--Main layout-->
+
+        </div>
+    </div>
+
+
+
+    <div id="openModal" class="floating-btn" data-tooltip="Add Student">
+        <i class="fa-solid fa-plus fa-2x" style="color: white;"></i>
+    </div>
+
+    <!-- Add Student Form -->
+    <div class="modal-container" id="modal_container">
+        <div class="modal-content">
+            <h2>Add New Student</h2>
+            <form action="/addStudent" method="post">
+                <div class="row" style="justify-content: space-between;">
+                    <div class="col">
+                        <h3 style="margin-top: 1rem; margin-bottom: 1px;">Name</h2>
+                            <input type="text" name="name" value="" class="student-details-field" required>
+                            <h3 style="margin-top: 1rem; margin-bottom: 1px;">Mobile No.</h2>
+                                <input type="text" maxlength="10" name="phone" value="" class="student-details-field"
+                                    required>
+                                <h3 style="margin-top: 1rem;  margin-bottom: 1px;">Emergency Contact No.</h2>
+                                    <input type="text" maxlength="10" name="emergencyContact" value=""
+                                        class="student-details-field" required>
+                                    <h3 style="margin-top: 1rem; margin-bottom: 1px;">Email</h2>
+                                        <input type="email" name="email" value="" class="student-details-field"
+                                            required>
+                                        <h3 style="margin-top: 1rem; margin-bottom: 1px;">DOB</h2>
+                                            <input type="date" name="dob" value="" class="student-details-field"
+                                                style="width: 225px;" required>
+                                            <h3 style="margin-top: 1rem; margin-bottom: 1px;">Address</h2>
+                                                <input type="text" name="address" value="" class="student-details-field"
+                                                    required>
+
+
+                    </div>
+                    <div class="col">
+                        <div class="col" style="text-align: center; margin-top: 2rem;">
+                            <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
+                                style="width: 9rem; margin-bottom: 20px;" alt="Avatar" />
+                        </div>
+                        <h3 style="margin-top: 1rem; margin-bottom: 1px;">Institute</h2>
+                            <input type="text" name="institue" value="" class="student-details-field" required>
+                            <h3 style="margin-top: 1rem; margin-bottom: 1px;">Room</h2>
+                                <input type="text" maxlength="3" name="room" value="" class="student-details-field"
+                                    required>
+                                <button type="submit" class="add-student-btn-save" id="saveModalData">SAVE</button>
+                                <button type="reset" class="add-student-btn-close" id="closeModal">CANCEL</button>
+                    </div>
+            </form>
+        </div>
+
+    </div>
+
+
+
+    <!-- JQuery SCript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap Script -->
+    <script src="/public/css/bootstrap-4.0.0-dist/js/bootstrap.js/>"></script>
+    <script src="/public/css/bootstrap-4.0.0-dist/js/bootstrap.min.js/>"></script>
+
+    <script type="text/javascript" src="/public/js/navbar.js"></script>
+    <script type="text/javascript" src="/public/js/student_management.js"></script>
+    <script>
+        for (var i = 0; i < allStudents.length; i++) {
+            document.getElementsByTagName("form")[i].setAttribute("id", allStudents[i]["id"]);
+        }
+
+    </script>
+    <script>
+        const openModal = document.getElementById('openModal');
+        const closeModal = document.getElementById('closeModal');
+        const modal_container = document.getElementById('modal_container');
+
+        openModal.addEventListener('click', () => {
+            modal_container.classList.add('show');
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal_container.classList.remove('show');
+        });
+    </script>
+
+</body>
+
+</html>

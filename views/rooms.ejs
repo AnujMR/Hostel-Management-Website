@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/public/css/bootstrap-4.0.0-dist/css/bootstrap.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/7f212a760d.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+    <link rel="stylesheet" href="/public/css/styles.css">
+
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-2">
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+                <div class="position-sticky">
+                    <div class="list-group list-group-flush mx-3 mt-4">
+                        <a href="/profile.html" class="list-group-item list-group-item-action py-6 ripple"
+                            id="profile_tab">
+                            <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
+                        </a>
+                        <a href="/dashboard.html" class="list-group-item list-group-item-action  py-6 ripple"
+                            id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
+                                style="margin-right: 15px;"></i><span>Dashboard</span></a>
+                        <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple active"
+                            id="rooms_tab"><i class="fa-solid fa-building"
+                                style="margin-right: 15px;"></i><span>Rooms</span></a>
+                        <a href="/students" class="list-group-item list-group-item-action py-6 ripple"
+                            id="students_tab">
+                            <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
+                        </a>
+                        <a href="/staff.html" class="list-group-item list-group-item-action py-6 ripple"
+                            id="staff_tab"><i class="fa-solid fa-users"
+                                style="margin-right: 15px;"></i><span>Staff</span></a>
+                    </div>
+                </div>
+            </nav>
+            <!-- Sidebar -->
+
+        </div>
+        <div class="col-md-10 screen-padding">
+            <h1 style="padding-bottom: 1rem;">Rooms</h1>
+
+            <div class="floor rooms-info-box">
+                <div class="row rooms-info-box-row">
+                    <div class="col" style="text-align: center; margin: 10px 0;">
+                        <h2>Total Floors</h2>
+                        <h2 style="font-weight: 600; font-size: 22px;">4</h2>
+                    </div>
+                    <div class="vertical-divider"></div>
+                    <div class="col" style="text-align: center;  margin: 10px 0;">
+                        <h2>Total Rooms</h2>
+                        <h2 style="font-weight: 600; font-size: 22px;">36</h2>
+                    </div>
+                    <div class="vertical-divider"></div>
+                    <div class="col" style="text-align: center;  margin: 10px 0;">
+                        <h2>Available Rooms</h2>
+                        <h2 style="font-weight: 600; font-size: 22px;">
+                            <%= allRooms.filter(r=> r["isEmpty"]).length %>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h2 class="floor-text">Floor 3</h2>
+                <div class="floor">
+                    <div class="row vol-ctr">
+
+                        <% for(var i=0; i < thirdFloorTop.length; i++){%>
+                            <div style="background-color: white; border: none;">
+                                <div class="room-top" id=<%=thirdFloorTop[i]["roomNo"] %>>
+                                    <%= thirdFloorTop[i]["roomNo"] %>
+                                </div>
+                                <div id=<%=`${thirdFloorTop[i]['roomNo']}_dropdown` %> class="w3-dropdown-content
+                                    w3-bar-block w3-border w3-animate-zoom"
+                                    style="background-color: white; border: none;">
+                                    <% if(allStudents[thirdFloorTop[i]["roomNo"]].length <=0){ %>
+                                        <p style="text-align: center; height: min-content;">Empty
+                                        </p>
+                                        <% }else{%>
+                                            <% for(var j=0; j < allStudents[thirdFloorTop[i]["roomNo"]].length; j++){ %>
+                                                <a href="#" class="w3-bar-item w3-button">
+                                                    <%=allStudents[thirdFloorTop[i]["roomNo"]][j]["name"]%>
+                                                </a>
+                                                <% } %>
+                                                    <% } %>
+                                </div>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="row vol-ctr">
+                        <% for(var i=0; i < thirdFloorBottom.length; i++){%>
+                            <div class="room-bottom" id=<%=thirdFloorBottom[i]["roomNo"] %>>
+                                <%= thirdFloorBottom[i]["roomNo"] %>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="floor-text">Floor 2</h2>
+                <div class="floor">
+                    <div class="row vol-ctr">
+                        <% for(var i=0; i < secondFloorTop.length; i++){%>
+                            <div class="room-top" id=<%=secondFloorTop[i]["roomNo"] %>>
+                                <%= secondFloorTop[i]["roomNo"] %>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="row vol-ctr">
+                        <% for(var i=0; i < secondFloorBottom.length; i++){%>
+                            <div class="room-bottom" id=<%=secondFloorBottom[i]["roomNo"] %>>
+                                <%= secondFloorBottom[i]["roomNo"] %>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="floor-text">Floor 1</h2>
+                <div class="floor">
+                    <div class="row vol-ctr">
+                        <% for(var i=0; i < firstFloorTop.length; i++){%>
+                            <div class="room-top" id=<%=firstFloorTop[i]["roomNo"] %>>
+                                <%= firstFloorTop[i]["roomNo"] %>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="row vol-ctr">
+                        <% for(var i=0; i < firstFloorBottom.length; i++){%>
+                            <div class="room-bottom" id=<%=firstFloorBottom[i]["roomNo"] %>>
+                                <%= firstFloorBottom[i]["roomNo"] %>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="floor-text">Ground Floor</h2>
+                <div class="floor">
+                    <div class="row vol-ctr">
+                        <% for(var i=0; i < groundFloorTop.length; i++){%>
+                            <div class="room-top" id=<%=groundFloorTop[i]["roomNo"] %>>
+                                <%= groundFloorTop[i]["roomNo"] %>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="row vol-ctr">
+                        <% for(var i=0; i < groundFloorBottom.length; i++){%>
+                            <div class="room-bottom" id=<%=groundFloorBottom[i]["roomNo"] %>>
+                                <%= groundFloorBottom[i]["roomNo"] %>
+                            </div>
+                            <% } %>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!--Main layout-->
+    </div>
+
+    <script>
+
+        <% for (var i = 0; i < allRooms.length; i++) { %>
+           var <%=`room_${allRooms[i]['roomNo']}` %> = document.getElementById(`<%= allRooms[i]["roomNo"] %>`);
+            if (<%= allRooms[i]["isEmpty"] %>) {
+                <%=`room_${allRooms[i]['roomNo']}` %>.classList.add("available");
+            }else {
+                <%=`room_${allRooms[i]['roomNo']}` %>.classList.remove("available");
+            }
+            <% } %>
+
+        <% for (var i = 0; i < allRooms.length; i++) { %>
+            var <%=`dropdownRoom_${allRooms[i]['roomNo']}` %> = document.getElementById(`<%= allRooms[i]["roomNo"] %>`);
+            var <%=`selectedRoom_${allRooms[i]['roomNo']}` %> = document.getElementById("<%=`${ allRooms[i]['roomNo'] }_dropdown` %>");
+    
+            <%=`dropdownRoom_${allRooms[i]['roomNo']}` %>.addEventListener('click', function () {
+                if (<%= `selectedRoom_${allRooms[i]['roomNo']}` %>.className.indexOf("w3-show") == -1) {
+                    <%=`selectedRoom_${allRooms[i]['roomNo']}` %>.className += " w3-show";
+            } else {
+                    <%=`selectedRoom_${allRooms[i]['roomNo']}` %>.className = <%=`selectedRoom_${allRooms[i]['roomNo']}` %>.className.replace("w3-show", "");
+            }
+        });
+            // $('#menucontainer').click(function (event) {
+            //     event.stopPropagation();
+            // });
+            <%}%>
+
+            // $('html').click(function () {
+            //         if (x.className.indexOf("w3-show") != -1) {
+            //             x.className = x.className.replace("w3-show", "");
+            //         }
+
+            //     });
+    </script>
+
+
+    <!-- Bootstrap Script -->
+    <script src="/public/css/bootstrap-4.0.0-dist/js/bootstrap.js/>"></script>
+
+    <!-- JQuery SCript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+
+    <script src="/public/js/navbar.js"></script>
+
+
+
+</body>
+
+</html>
