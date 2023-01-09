@@ -39,7 +39,7 @@
                             id="profile_tab">
                             <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
                         </a>
-                        <a href="/dashboard.html" class="list-group-item list-group-item-action  py-6 ripple active"
+                        <a href="/dashboard" class="list-group-item list-group-item-action  py-6 ripple active"
                             id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
                                 style="margin-right: 15px;"></i><span>Dashboard</span></a>
                         <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
@@ -64,14 +64,14 @@
                 <div style="margin-right: 3rem;">
                     <div id="circular-progress" class="my-auto" role="progressbar" aria-valuenow="3" aria-valuemin="0"
                         aria-valuemax="100" style="--value: 0">
-                        25/30
+                        <%= occupiedRooms %>/<%= rooms %>
                     </div>
                     <h3 class="text-center" style="margin-top: 10px;">Rooms Occupied</h3>
                 </div>
 
                 <div class="total-students-container col-md-2">
                     <h2 class="white-text">Total Students</h2>
-                    <h1 class="white-text">150</h1>
+                    <h1 class="white-text"><%= students %> </h1>
                 </div>
 
                 <div class="total-students-container col-md-2" style="background-color: #FFD458; margin-left: 3rem;">
@@ -99,8 +99,13 @@
         crossorigin="anonymous"></script>
 
     <script src="/public/js/navbar.js"></script>
-    <script src="/public/js/circular_progress_bar.js"></script>
     <script src="/public/js/expenses_graph.js"></script>
+    <script>
+        var currentValue = <%= occupiedRooms %>;
+            var maxValue = <%= rooms %>;
+            document.querySelector("#circular-progress").setAttribute("style", "--value:" + (currentValue / maxValue) * 100);
+            // $("#circular-progress").html(currentValue + "/" + maxValue);
+    </script>
 </body>
 
 </html>

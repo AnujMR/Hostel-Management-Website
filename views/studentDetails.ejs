@@ -36,7 +36,7 @@
                             id="profile_tab">
                             <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
                         </a>
-                        <a href="/dashboard.html" class="list-group-item list-group-item-action  py-6 ripple"
+                        <a href="/dashboard" class="list-group-item list-group-item-action  py-6 ripple"
                             id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
                                 style="margin-right: 15px;"></i><span>Dashboard</span></a>
                         <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
@@ -56,11 +56,14 @@
         </div>
         <div class="col-md-10 screen-padding">
             <!--Main layout-->
-            <h1 style="padding-bottom: 1rem;">Student Details</h1>
-            <form action="">
-                <div class="row" style=" display: flex;
-    justify-content: space-between;">
-                    <div class="col-md-5">
+            <h1 style="padding-bottom: 1rem; display: inline;">Student Details </h1>
+            <button id="delete-btn" class="delete_btn">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+            
+            <form action="/updateStudent" method="post">
+                <div class="row" style=" display: flex; justify-content: space-between;">
+                    <div class="col-md-5" style="text-align: center;">
 
                         <!-- <div class="row">
                             <div class="col-md-4">
@@ -85,45 +88,54 @@
                         <!-- Name -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Name : </h2>
-                            <input type="text" name="name" id="nameField" value=<%=studentData["name"]%>
+                            <input onchange="InputChangeListener()" type="text" name="name" id="nameField"
                             class="student-details-field">
                         </div>
 
                         <!-- DOB -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">DOB : </h2>
-                            <input type="date" name="dob" id="dobField" value=<%=studentData["dob"]%>
+                            <input onchange="InputChangeListener()" type="date" name="dob" id="dobField"
                             class="student-details-field" style="width: 225px;">
                         </div>
 
                         <!-- Room no -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Room No. : </h2>
-                            <input type="text" name="room" id="roomField" value=<%=studentData["room"] %>
-                            class="student-details-field">
+                            <select name="room" id="roomField" onchange="InputChangeListener()" class="student-details-field select-room-field" required>
+                                <% for(var i=0; i < allRooms.length; i++){ %>
+                                    <option value=<%= studentData["room"] %> disabled selected hidden><%= studentData["room"] %></option>
+                                    <option value=<%=allRooms[i].roomNo%>><%=allRooms[i].roomNo%>
+                                    </option>
+                                    <% } %>
+                                </select>
+                            <!-- <input onchange="InputChangeListener()" type="text" name="room" id="roomField" 
+                            class="student-details-field"> -->
                         </div>
 
                         <!-- Educational Institute -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Educational Institute : </h2>
-                            <input type="text" name="institue" id="educationField" value=<%=studentData["institue"]%>
+                            <input onchange="InputChangeListener()" type="text" name="institue" id="educationField" 
                             class="student-details-field">
                         </div>
 
                         <!-- Mobile no -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Mobile No. : </h2>
-                            <input type="text" maxlength="10" name="phone" id="mobileField"
-                                value=<%=studentData["phone"] %>
+                            <input onchange="InputChangeListener()" type="tel" pattern="^\d{10}$" maxlength="10" name="phone" id="mobileField"
                             class="student-details-field">
                         </div>
 
                         <!-- Email -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Email Id : </h2>
-                            <input type="text" name="email" id="emailField" value=<%=studentData["email"] %>
+                            <input onchange="InputChangeListener()" type="text" name="email" id="emailField" 
                             class="student-details-field">
                         </div>
+                        
+                        <!-- Save Button -->
+                        <button type="submit" id="saveBtn">Save</button>
                     </div>
 
                     <div class="col-md-5" style="text-align: center; margin-right: 30px;">
@@ -133,15 +145,14 @@
                         <!-- Address -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Home Address : </h2>
-                            <textarea name="address" id="addressField" cols="23" rows="5" class="student-details-field"
+                            <textarea onchange="InputChangeListener()" name="address" id="addressField" cols="23" rows="5" class="student-details-field"
                                 style="text-align: start;"><%=studentData["address"] %></textarea>
                         </div>
 
                         <!-- Emergency Contact -->
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Emergency Contact : </h2>
-                            <input type="text" maxlength="10" name="emergencyContact" id="emergencyField"
-                                value=<%=studentData["emergencyContact"] %>
+                            <input onchange="InputChangeListener()" type="tel" pattern="^\d{10}$" maxlength="10" name="emergencyContact" id="emergencyField"
                             class="student-details-field">
                         </div>
 
@@ -160,14 +171,31 @@
 
                         </div>
 
+                        <input type="text" name="id" style="display: none;" value=<%= studentData["id"]  %> >
+
                     </div>
                 </div>
             </form>
         </div>
         <!--Main layout-->
     </div>
-    </div>
 
+
+    <!-- Delete Student Pop-Up -->
+    <div>
+        <div class="modal-container" id="delete_popup">
+            <div class="modal-content" style="text-align: center;">
+                <h3 id="delete_txt">Do you want to delete this student?</h3>
+                <form action="/deleteStudent" method="post">
+                    <div class="col"
+                        style="text-align: center; display: flex; justify-content: center; align-items: center;">
+                        <button type="submit" name="studentId" value=<%= studentData["id"]  %>  class="add-student-btn-close" id="delete_student">DELETE</button>
+                        <button type="reset" class="add-student-btn-close-no-bg" id="delete_closeModal">CANCEL</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -181,7 +209,74 @@
 
     <script type="text/javascript" src="/public/js/navbar.js"></script>
 
+    <!-- Delete student pop-up script -->
     <script>
+        const delete_openModal_btn = document.getElementById('delete-btn');
+        const delete_closeModal = document.getElementById('delete_closeModal');
+        const delete_modal_container = document.getElementById('delete_popup');
+
+            delete_openModal_btn.addEventListener('click', (e) => {
+                var studName = `<%= studentData["name"] %>`;
+                delete_modal_container.getElementsByClassName("modal-content")[0].getElementsByTagName("h3")[0].innerHTML = `Do you want to delete <b>${studName}</b>?`;
+                delete_modal_container.classList.add('show');
+            });
+        
+
+        delete_closeModal.addEventListener('click', () => {
+            delete_modal_container.classList.remove('show');
+        });
+    </script>
+
+    <script>
+        var nameField = document.getElementById("nameField");
+        var institueField = document.getElementById("educationField");
+        var roomField =  document.getElementById("roomField");
+        var emailField = document.getElementById("emailField");
+        var mobileField = document.getElementById("mobileField");
+        var emergencyField = document.getElementById("emergencyField");
+        var dobField = document.getElementById("dobField");
+        var addressField = document.getElementById("addressField");
+        
+        nameField.value = `<%= studentData["name"] %>`;
+        institueField.value = `<%= studentData["institue"] %>`;
+        emailField.value = `<%= studentData["email"] %>`;
+        mobileField.value = `<%= studentData["phone"] %>`;
+        emergencyField.value = `<%= studentData["emergencyContact"] %>`;
+        dobField.value = `<%= studentData["dob"] %>`;
+
+        function InputChangeListener() {
+                flag = 0;
+
+                nameField_default = nameField.defaultValue;
+                institueField_default = institueField.defaultValue;
+                roomField_default = roomField.defaultValue;
+                emailField_default = emailField.defaultValue;
+                mobileField_default = mobileField.defaultValue;
+                emergencyField_default = emergencyField.defaultValue;
+                dobField_default = dobField.defaultValue;
+                addressField_default = addressField.defaultValue;
+
+
+                var saveButton = document.getElementById("saveBtn");
+                if (
+                    nameField.value != nameField_default ||
+                    institueField.value != institueField_default ||
+                    roomField.value != roomField_default ||
+                    emailField.value != emailField_default ||
+                    mobileField.value != mobileField_default ||
+                    emergencyField.value != emergencyField_default ||
+                    dobField.value != dobField_default ||
+                    addressField.value != addressField_default 
+                ) {
+                    flag = 1;
+                }
+
+                if (flag == 1) {
+                    saveButton.style.display = "inline";
+                } else {
+                    saveButton.style.display = "none";
+                }
+            }
     </script>
 </body>
 

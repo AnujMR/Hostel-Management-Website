@@ -205,6 +205,12 @@ h3 {
     padding: 5px 10px;
 }
 
+.room-student-tile {
+    background-color: white;
+    font-size: 16px;
+
+}
+
 /* Students Module */
 
 .search-btn {
@@ -281,6 +287,10 @@ h3 {
     padding: 5px 10px;
 }
 
+.select-room-field {
+    width: 225px;
+}
+
 .modal-container {
     background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
@@ -291,7 +301,7 @@ h3 {
     padding-left: 10%;
     opacity: 0;
     pointer-events: none;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     transition: opacity 0.3s ease;
@@ -300,6 +310,7 @@ h3 {
 .modal-container.show {
     opacity: 1;
     pointer-events: auto;
+    display: flex;
 }
 
 .modal-content {
@@ -315,6 +326,19 @@ h3 {
 .modal-content h2 {
     font-size: 25px;
     font-weight: 600;
+}
+
+.add-student-btn-close-no-bg {
+    background-color: rgba(0, 0, 0, 0);
+    color: red;
+    border-radius: 10px;
+    padding: 5px 8px;
+    border: none;
+    width: 100%;
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 1rem;
 }
 
 .add-student-btn-close {
@@ -344,6 +368,65 @@ h3 {
     margin-top: 1rem;
 }
 
+#saveBtn{
+    display: none;
+    text-align: center;
+    background-color: #16c851;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 0;
+    margin-top: 70px;
+    min-width: 200px;
+}
+
+#saveBtn:hover{
+    background-color: #10a040;
+}
+
+.delete_btn{
+    color: red;
+    background-color: white;
+    border: 1px solid rgb(213, 213, 213);
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-left: 10px;
+}
+
+.delete_btn:hover{
+    color: white;
+    background-color: red;
+    border: 1px solid red;
+}
+
+#searchIcon{
+    border-top: 0.5px solid grey;
+    border-left: 0.5px solid grey;
+    border-bottom: 0.5px solid grey;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    background-color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 10px;
+}
+
+#searchField{
+    border-top: 0.5px solid grey;
+    border-right: 0.5px solid grey;
+    border-bottom: 0.5px solid grey;
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    background-color: white;
+}
+
+#searchField:focus{
+    outline: none;
+    box-shadow: none;
+}
+
 /* Floating Add Button*/
 
 .floating-btn {
@@ -351,7 +434,7 @@ h3 {
     width: 4rem;
     height: 4rem;
     background-color: var(--primary);
-    position: absolute;
+    position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -471,7 +554,58 @@ h3 {
     opacity: 1;
 }
 
+/* Profile Pic */
+
+.profile-pic {
+    color: transparent;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.profile-pic input {
+    display: none;
+}
+
+.profile-pic img {
+    position: absolute;
+    object-fit: cover;
+    width: 165px;
+    height: 165px;
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.35);
+    border-radius: 100px;
+    z-index: 0;
+}
+
+.profile-pic .-label {
+    cursor: pointer;
+    height: 165px;
+    width: 165px;
+}
+
+.profile-pic:hover .-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    color: #fafafa;
+    transition: background-color 0.2s ease-in-out;
+    border-radius: 100px;
+    margin-bottom: 0;
+}
+
+.profile-pic span {
+    display: inline-flex;
+    padding: 0.2em;
+    height: 2em;
+}
+
 /* Circular Progress Bar */
+
 @keyframes growProgressBar {
 
     0%,

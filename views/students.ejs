@@ -37,7 +37,7 @@
                             id="profile_tab">
                             <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
                         </a>
-                        <a href="/dashboard.html" class="list-group-item list-group-item-action  py-6 ripple"
+                        <a href="/dashboard" class="list-group-item list-group-item-action  py-6 ripple"
                             id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
                                 style="margin-right: 15px;"></i><span>Dashboard</span></a>
                         <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
@@ -55,18 +55,16 @@
             <!-- Sidebar -->
 
         </div>
-        <div class="col-md-10 screen-padding">
+        <div id="studentColumn" class="col-md-10 screen-padding">
             <!--Main layout-->
 
             <h1 style="padding-bottom: 1rem;">Students</h1>
-
-            <form action="" class="">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control form-control-lg" placeholder="Search Student">
-                    <button type="submit" class="input-group-text search-btn"><i class="bi bi-search me-2"></i>
-                        Search</button>
+                    <div id="searchIcon">
+                        <i class="fa-solid fa-magnifying-glass" style="font-size: 20px;"></i>
+                    </div>
+                    <input id="searchField" type="text" onkeyup="searchStudent()" class="form-control form-control-lg" placeholder="Search Student">
                 </div>
-            </form>
             <% for(var i=0; i < allStudents.length; i++){ %>
                 <div class="student-tile">
                     <div class="container student-tile-content" style="justify-content: space-between;">
@@ -81,12 +79,15 @@
                                 <h2 class="id-number">F22001</h2>
                             </div>
                         </div>
+                        
                         <form id=<%=allStudents[i]['id']%> action="/studentDetails" method="post">
                             <input class="view-details-btn" type="submit" value="View Details"
                                 style="font-size: 16px; text-align: center;">
                             <input type="text" style="visibility: hidden;  display: none;" name="studentId"
                                 value=<%=allStudents[i]["id"] %>>
                         </form>
+                            
+                        
                     </div>
                 </div>
                 <% } %>
@@ -107,7 +108,6 @@
                                     </div>
                                 </a>
 
-
                             </div>
                         </div> -->
 
@@ -118,10 +118,11 @@
     </div>
 
 
-
     <div id="openModal" class="floating-btn" data-tooltip="Add Student">
         <i class="fa-solid fa-plus fa-2x" style="color: white;"></i>
     </div>
+
+
 
     <!-- Add Student Form -->
     <div class="modal-container" id="modal_container">
@@ -133,10 +134,10 @@
                         <h3 style="margin-top: 1rem; margin-bottom: 1px;">Name</h2>
                             <input type="text" name="name" value="" class="student-details-field" required>
                             <h3 style="margin-top: 1rem; margin-bottom: 1px;">Mobile No.</h2>
-                                <input type="text" maxlength="10" name="phone" value="" class="student-details-field"
+                                <input type="tel" pattern="^\d{10}$" maxlength="10" name="phone" value="" class="student-details-field"
                                     required>
                                 <h3 style="margin-top: 1rem;  margin-bottom: 1px;">Emergency Contact No.</h2>
-                                    <input type="text" maxlength="10" name="emergencyContact" value=""
+                                    <input type="tel" pattern="^\d{10}$" maxlength="10" name="emergencyContact" value=""
                                         class="student-details-field" required>
                                     <h3 style="margin-top: 1rem; margin-bottom: 1px;">Email</h2>
                                         <input type="email" name="email" value="" class="student-details-field"
@@ -148,26 +149,40 @@
                                                 <input type="text" name="address" value="" class="student-details-field"
                                                     required>
 
-
                     </div>
                     <div class="col">
-                        <div class="col" style="text-align: center; margin-top: 2rem;">
+                        <div class="profile-pic">
+                            <label class="-label" for="file">
+                                <span class="glyphicon glyphicon-camera"></span>
+                                <span>Change Image</span>
+                            </label>
+                            <input id="file" type="file" onchange="loadFile(event)" />
+                            <img src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"
+                                id="profile_pic" width="9rem" />
+                        </div>
+                        <!-- <div class="col" style="text-align: center; margin-top: 2rem;">
                             <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
                                 style="width: 9rem; margin-bottom: 20px;" alt="Avatar" />
-                        </div>
+                        </div> -->
                         <h3 style="margin-top: 1rem; margin-bottom: 1px;">Institute</h2>
                             <input type="text" name="institue" value="" class="student-details-field" required>
                             <h3 style="margin-top: 1rem; margin-bottom: 1px;">Room</h2>
-                                <input type="text" maxlength="3" name="room" value="" class="student-details-field"
-                                    required>
+                                <!-- <input type="text" maxlength="3" name="room" value="" class="student-details-field"
+                                    required> -->
+                                <select name="room" class="student-details-field select-room-field" required>
+                                    <% for(var i=0; i < allRooms.length; i++){ %>
+                                        <option value=<%=allRooms[i].roomNo%>><%=allRooms[i].roomNo%>
+                                        </option>
+                                        <% } %>
+                                </select>
                                 <button type="submit" class="add-student-btn-save" id="saveModalData">SAVE</button>
                                 <button type="reset" class="add-student-btn-close" id="closeModal">CANCEL</button>
                     </div>
+                    <% var a = allStudents; %> 
             </form>
         </div>
 
     </div>
-
 
 
     <!-- JQuery SCript -->
@@ -181,12 +196,8 @@
 
     <script type="text/javascript" src="/public/js/navbar.js"></script>
     <script type="text/javascript" src="/public/js/student_management.js"></script>
-    <script>
-        for (var i = 0; i < allStudents.length; i++) {
-            document.getElementsByTagName("form")[i].setAttribute("id", allStudents[i]["id"]);
-        }
 
-    </script>
+    <!-- Add student modal script -->
     <script>
         const openModal = document.getElementById('openModal');
         const closeModal = document.getElementById('closeModal');
@@ -199,6 +210,33 @@
         closeModal.addEventListener('click', () => {
             modal_container.classList.remove('show');
         });
+    </script>
+
+
+    <!-- Profile Pic script -->
+    <script>
+        var loadFile = function (event) {
+            var image = document.getElementById("profile_pic");
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
+
+    </script>
+
+    <script>
+        function searchStudent(){
+            var searchQuery = document.getElementById("searchField").value;
+            let studentCol = document.getElementById("studentColumn");
+            let tiles = studentCol.getElementsByClassName("student-tile");
+            for(var i = 0; i < tiles.length; i++){
+                var name = tiles[i].getElementsByClassName("student-name")[0].innerHTML;
+                if(name.toLowerCase().includes(searchQuery.toLowerCase())){
+                    tiles[i].style.display = '';
+                }else{
+                    tiles[i].style.display = 'none';
+                }
+                
+            }
+        }
     </script>
 
 </body>
