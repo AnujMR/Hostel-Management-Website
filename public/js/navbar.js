@@ -6,7 +6,7 @@
 // });
 
 // $('#dashboard_tab').on('click', function () {
-//     location.replace('/public/html/dashboard.html');
+//     location.replace('/public/html/dashboard');
 // });
 
 // $('#rooms_tab').on('click', function () {

@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/public/css/bootstrap-4.0.0-dist/css/bootstrap.css">
+    
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,6 +21,9 @@
 
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/public/css/bootstrap-4.0.0-dist/css/bootstrap.css">
+
     <link rel="stylesheet" href="/public/css/styles.css">
 
 </head>
@@ -33,23 +35,18 @@
             <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
-                        <a href="/profile.html" class="list-group-item list-group-item-action py-6 ripple"
-                            id="profile_tab">
+                        <a href="/profile.html" class="list-group-item list-group-item-action py-6 ripple" id="profile_tab">
                             <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
                         </a>
-                        <a href="/dashboard.html" class="list-group-item list-group-item-action  py-6 ripple"
-                            id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
-                                style="margin-right: 15px;"></i><span>Dashboard</span></a>
-                        <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple active"
-                            id="rooms_tab"><i class="fa-solid fa-building"
-                                style="margin-right: 15px;"></i><span>Rooms</span></a>
-                        <a href="/students" class="list-group-item list-group-item-action py-6 ripple"
-                            id="students_tab">
+                        <a href="/dashboard" class="list-group-item list-group-item-action py-6 ripple" id="dashboard_tab"><i
+                                class="fa-solid fa-square-poll-vertical" style="margin-right: 15px;"></i><span>Dashboard</span></a>
+                        <a href="/rooms" class="list-group-item list-group-item-action py-6 ripple active" id="rooms_tab"><i
+                                class="fa-solid fa-building" style="margin-right: 15px;"></i><span>Rooms</span></a>
+                        <a href="/students" class="list-group-item list-group-item-action py-6 ripple" id="students_tab">
                             <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
                         </a>
-                        <a href="/staff.html" class="list-group-item list-group-item-action py-6 ripple"
-                            id="staff_tab"><i class="fa-solid fa-users"
-                                style="margin-right: 15px;"></i><span>Staff</span></a>
+                        <a href="/staff.html" class="list-group-item list-group-item-action py-6 ripple" id="staff_tab"><i
+                                class="fa-solid fa-users" style="margin-right: 15px;"></i><span>Staff</span></a>
                     </div>
                 </div>
             </nav>
@@ -74,7 +71,7 @@
                     <div class="col" style="text-align: center;  margin: 10px 0;">
                         <h2>Available Rooms</h2>
                         <h2 style="font-weight: 600; font-size: 22px;">
-                            <%= allRooms.filter(r=> r["isEmpty"]).length %>
+                            <%= allRooms.filter(r=> r["studentCount"] < 3).length %>
                         </h2>
                     </div>
                 </div>
@@ -97,20 +94,46 @@
                                         <p style="text-align: center; height: min-content;">Empty
                                         </p>
                                         <% }else{%>
-                                            <% for(var j=0; j < allStudents[thirdFloorTop[i]["roomNo"]].length; j++){ %>
-                                                <a href="#" class="w3-bar-item w3-button">
-                                                    <%=allStudents[thirdFloorTop[i]["roomNo"]][j]["name"]%>
-                                                </a>
-                                                <% } %>
+                                            <% for(var j=0; j < allStudents[thirdFloorTop[i]["roomNo"]].length; j++){%>
+                                                    <form action="/studentDetails" method="post">
+                                                        <button type="submit" name="studentId"
+                                                            value=<%=allStudents[thirdFloorTop[i]["roomNo"]][j]["id"]%>
+                                                            class="w3-bar-item
+                                                            w3-button room-student-tile">
+                                                            <%=allStudents[thirdFloorTop[i]["roomNo"]][j]["name"]%>
+                                                        </button>
+                                                    </form>
                                                     <% } %>
+                                                        <% } %>
                                 </div>
                             </div>
                             <% } %>
                     </div>
                     <div class="row vol-ctr">
                         <% for(var i=0; i < thirdFloorBottom.length; i++){%>
-                            <div class="room-bottom" id=<%=thirdFloorBottom[i]["roomNo"] %>>
-                                <%= thirdFloorBottom[i]["roomNo"] %>
+                            <div>
+                                <div class="room-bottom" id=<%=thirdFloorBottom[i]["roomNo"] %>>
+                                    <%= thirdFloorBottom[i]["roomNo"] %>
+                                </div>
+                                <div id=<%=`${thirdFloorBottom[i]['roomNo']}_dropdown` %> class="w3-dropdown-content
+                                    w3-bar-block w3-border w3-animate-zoom"
+                                    style="background-color: white; border: none;">
+                                    <% if(allStudents[thirdFloorBottom[i]["roomNo"]].length <=0){ %>
+                                        <p style="text-align: center; height: min-content;">Empty
+                                        </p>
+                                        <% }else{%>
+                                            <% for(var j=0; j < allStudents[thirdFloorBottom[i]["roomNo"]].length;j++){ %>
+                                                    <form action="/studentDetails" method="post">
+                                                        <button type="submit" name="studentId"
+                                                            value=<%=allStudents[thirdFloorBottom[i]["roomNo"]][j]["id"]%>
+                                                            class="w3-bar-item
+                                                            w3-button room-student-tile">
+                                                            <%=allStudents[thirdFloorBottom[i]["roomNo"]][j]["name"]%>
+                                                        </button>
+                                                    </form>
+                                                    <% } %>
+                                                        <% } %>
+                                </div>
                             </div>
                             <% } %>
                     </div>
@@ -121,15 +144,57 @@
                 <div class="floor">
                     <div class="row vol-ctr">
                         <% for(var i=0; i < secondFloorTop.length; i++){%>
-                            <div class="room-top" id=<%=secondFloorTop[i]["roomNo"] %>>
-                                <%= secondFloorTop[i]["roomNo"] %>
+                            <div>
+                                <div class="room-top" id=<%=secondFloorTop[i]["roomNo"] %>>
+                                    <%= secondFloorTop[i]["roomNo"] %>
+                                </div>
+                                <div id=<%=`${secondFloorTop[i]['roomNo']}_dropdown` %> class="w3-dropdown-content
+                                    w3-bar-block w3-border w3-animate-zoom"
+                                    style="background-color: white; border: none;">
+                                    <% if(allStudents[secondFloorTop[i]["roomNo"]].length <=0){ %>
+                                        <p style="text-align: center; height: min-content;">Empty
+                                        </p>
+                                        <% }else{%>
+                                            <% for(var j=0; j < allStudents[secondFloorTop[i]["roomNo"]].length; j++){ %>
+                                                    <form action="/studentDetails" method="post">
+                                                        <button type="submit" name="studentId"
+                                                            value=<%=allStudents[secondFloorTop[i]["roomNo"]][j]["id"]%>
+                                                            class="w3-bar-item
+                                                            w3-button room-student-tile">
+                                                            <%=allStudents[secondFloorTop[i]["roomNo"]][j]["name"]%>
+                                                        </button>
+                                                    </form>
+                                                    <% } %>
+                                                        <% } %>
+                                </div>
                             </div>
                             <% } %>
                     </div>
                     <div class="row vol-ctr">
                         <% for(var i=0; i < secondFloorBottom.length; i++){%>
-                            <div class="room-bottom" id=<%=secondFloorBottom[i]["roomNo"] %>>
-                                <%= secondFloorBottom[i]["roomNo"] %>
+                            <div>
+                                <div class="room-bottom" id=<%=secondFloorBottom[i]["roomNo"] %>>
+                                    <%= secondFloorBottom[i]["roomNo"] %>
+                                </div>
+                                <div id=<%=`${secondFloorBottom[i]['roomNo']}_dropdown` %> class="w3-dropdown-content
+                                    w3-bar-block w3-border w3-animate-zoom"
+                                    style="background-color: white; border: none;">
+                                    <% if(allStudents[secondFloorBottom[i]["roomNo"]].length <=0){ %>
+                                        <p style="text-align: center; height: min-content;">Empty
+                                        </p>
+                                        <% }else{%>
+                                            <% for(var j=0; j < allStudents[secondFloorBottom[i]["roomNo"]].length; j++) { %>
+                                                    <form action="/studentDetails" method="post">
+                                                        <button type="submit" name="studentId"
+                                                            value=<%=allStudents[secondFloorBottom[i]["roomNo"]][j]["id"]%>
+                                                            class="w3-bar-item
+                                                            w3-button room-student-tile">
+                                                            <%=allStudents[secondFloorBottom[i]["roomNo"]][j]["name"]%>
+                                                        </button>
+                                                    </form>
+                                                    <% } %>
+                                                        <% } %>
+                                </div>
                             </div>
                             <% } %>
                     </div>
@@ -140,15 +205,57 @@
                 <div class="floor">
                     <div class="row vol-ctr">
                         <% for(var i=0; i < firstFloorTop.length; i++){%>
-                            <div class="room-top" id=<%=firstFloorTop[i]["roomNo"] %>>
-                                <%= firstFloorTop[i]["roomNo"] %>
+                            <div>
+                                <div class="room-top" id=<%=firstFloorTop[i]["roomNo"] %>>
+                                    <%= firstFloorTop[i]["roomNo"] %>
+                                </div>
+                                <div id=<%=`${firstFloorTop[i]['roomNo']}_dropdown` %> class="w3-dropdown-content
+                                    w3-bar-block w3-border w3-animate-zoom"
+                                    style="background-color: white; border: none;">
+                                    <% if(allStudents[firstFloorTop[i]["roomNo"]].length <=0){ %>
+                                        <p style="text-align: center; height: min-content;">Empty
+                                        </p>
+                                        <% }else{%>
+                                            <% for(var j=0; j < allStudents[firstFloorTop[i]["roomNo"]].length; j++){ %>
+                                                    <form action="/studentDetails" method="post">
+                                                        <button type="submit" name="studentId"
+                                                            value=<%=allStudents[firstFloorTop[i]["roomNo"]][j]["id"]%>
+                                                            class="w3-bar-item
+                                                            w3-button room-student-tile">
+                                                            <%=allStudents[firstFloorTop[i]["roomNo"]][j]["name"]%>
+                                                        </button>
+                                                    </form>
+                                                    <% } %>
+                                                        <% } %>
+                                </div>
                             </div>
                             <% } %>
                     </div>
                     <div class="row vol-ctr">
                         <% for(var i=0; i < firstFloorBottom.length; i++){%>
-                            <div class="room-bottom" id=<%=firstFloorBottom[i]["roomNo"] %>>
-                                <%= firstFloorBottom[i]["roomNo"] %>
+                            <div>
+                                <div class="room-bottom" id=<%=firstFloorBottom[i]["roomNo"] %>>
+                                    <%= firstFloorBottom[i]["roomNo"] %>
+                                </div>
+                                <div id=<%=`${firstFloorBottom[i]['roomNo']}_dropdown` %> class="w3-dropdown-content
+                                    w3-bar-block w3-border w3-animate-zoom"
+                                    style="background-color: white; border: none;">
+                                    <% if(allStudents[firstFloorBottom[i]["roomNo"]].length <=0){ %>
+                                        <p style="text-align: center; height: min-content;">Empty
+                                        </p>
+                                        <% }else{%>
+                                            <% for(var j=0; j < allStudents[firstFloorBottom[i]["roomNo"]].length; j++) { %>
+                                                    <form action="/studentDetails" method="post">
+                                                        <button type="submit" name="studentId"
+                                                            value=<%=allStudents[firstFloorBottom[i]["roomNo"]][j]["id"]%>
+                                                            class="w3-bar-item
+                                                            w3-button room-student-tile">
+                                                            <%=allStudents[firstFloorBottom[i]["roomNo"]][j]["name"]%>
+                                                        </button>
+                                                    </form>
+                                                    <% } %>
+                                                        <% } %>
+                                </div>
                             </div>
                             <% } %>
                     </div>
@@ -159,15 +266,57 @@
                 <div class="floor">
                     <div class="row vol-ctr">
                         <% for(var i=0; i < groundFloorTop.length; i++){%>
-                            <div class="room-top" id=<%=groundFloorTop[i]["roomNo"] %>>
-                                <%= groundFloorTop[i]["roomNo"] %>
+                            <div>
+                                <div class="room-top" id=<%=groundFloorTop[i]["roomNo"] %>>
+                                    <%= groundFloorTop[i]["roomNo"] %>
+                                </div>
+                                <div id=<%=`${groundFloorTop[i]['roomNo']}_dropdown` %> class="w3-dropdown-content
+                                    w3-bar-block w3-border w3-animate-zoom"
+                                    style="background-color: white; border: none;">
+                                    <% if(allStudents[groundFloorTop[i]["roomNo"]].length <=0){ %>
+                                        <p style="text-align: center; height: min-content;">Empty
+                                        </p>
+                                        <% }else{%>
+                                            <% for(var j=0; j < allStudents[groundFloorTop[i]["roomNo"]].length; j++){ %>
+                                                    <form action="/studentDetails" method="post">
+                                                        <button type="submit" name="studentId"
+                                                            value=<%=allStudents[groundFloorTop[i]["roomNo"]][j]["id"]%>
+                                                            class="w3-bar-item
+                                                            w3-button room-student-tile">
+                                                            <%=allStudents[groundFloorTop[i]["roomNo"]][j]["name"]%>
+                                                        </button>
+                                                    </form>
+                                                    <% } %>
+                                                        <% } %>
+                                </div>
                             </div>
                             <% } %>
                     </div>
                     <div class="row vol-ctr">
                         <% for(var i=0; i < groundFloorBottom.length; i++){%>
-                            <div class="room-bottom" id=<%=groundFloorBottom[i]["roomNo"] %>>
-                                <%= groundFloorBottom[i]["roomNo"] %>
+                            <div>
+                                <div class="room-bottom" id=<%=groundFloorBottom[i]["roomNo"] %>>
+                                    <%= groundFloorBottom[i]["roomNo"] %>
+                                </div>
+                                <div id=<%=`${groundFloorBottom[i]['roomNo']}_dropdown` %> class="w3-dropdown-content
+                                    w3-bar-block w3-border w3-animate-zoom"
+                                    style="background-color: white; border: none;">
+                                    <% if(allStudents[groundFloorBottom[i]["roomNo"]].length <=0){ %>
+                                        <p style="text-align: center; height: min-content;">Empty
+                                        </p>
+                                        <% }else{%>
+                                            <% for(var j=0; j < allStudents[groundFloorBottom[i]["roomNo"]].length; j++){  %>
+                                                    <form action="/studentDetails" method="post">
+                                                        <button type="submit" name="studentId"
+                                                            value=<%=allStudents[groundFloorBottom[i]["roomNo"]][j]["id"]%>
+                                                            class="w3-bar-item
+                                                            w3-button room-student-tile">
+                                                            <%=allStudents[groundFloorBottom[i]["roomNo"]][j]["name"]%>
+                                                        </button>
+                                                    </form>
+                                                    <% } %>
+                                                        <% } %>
+                                </div>
                             </div>
                             <% } %>
                     </div>
@@ -184,7 +333,7 @@
 
         <% for (var i = 0; i < allRooms.length; i++) { %>
            var <%=`room_${allRooms[i]['roomNo']}` %> = document.getElementById(`<%= allRooms[i]["roomNo"] %>`);
-            if (<%= allRooms[i]["isEmpty"] %>) {
+            if (<%= allRooms[i]["studentCount"] < 3 %>) {
                 <%=`room_${allRooms[i]['roomNo']}` %>.classList.add("available");
             }else {
                 <%=`room_${allRooms[i]['roomNo']}` %>.classList.remove("available");

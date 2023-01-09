@@ -1,5 +1,5 @@
 import express from "express";
-import { addStudent, getStudents, addRoom, getRooms } from "./firebase_config.js";
+import { addStudent, getStudents, addRoom, getRooms, updateStudent, deleteStudent } from "./firebase_config.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -17,11 +17,20 @@ app.listen(process.env.PORT || 3000, function () {
 });
 
 app.get("/", async (req, res) => {
-    res.redirect("/public/html/dashboard.html");
+    res.redirect("dashboard");
 });
 
-app.get("/dashboard.html", async (req, res) => {
-    res.redirect("/public/html/dashboard.html");
+app.get("/dashboard", async (req, res) => {
+    studentList = await getStudents();
+    roomsList = await getRooms();
+    var noOfStudents = studentList.length;
+    var totalRooms = roomsList.length;
+    var noOfoccupiedRooms = roomsList.filter(r=> r.studentCount > 0).length;
+    res.render("dashboard",{
+        students: noOfStudents,
+        rooms : totalRooms,
+        occupiedRooms : noOfoccupiedRooms
+    });
 });
 
 app.get("/profile.html", async (req, res) => {
@@ -31,16 +40,21 @@ app.get("/profile.html", async (req, res) => {
 //  ** Student Module **
 
 app.get("/students", async (req, res) => {
+    roomsList = await getRooms();
+    roomsList.sort((a, b) => a.roomNo - b.roomNo);
     studentList = await getStudents();
+    var availableRooms = roomsList.filter(r => r.studentCount < 3);
     // console.log(studentList);
     res.render("students", {
-        allStudents: studentList
+        allStudents: studentList,
+        allRooms: availableRooms
     });
 });
 
 app.post("/studentDetails", async (req, res) => {
     // console.log(req.body);
     var myStudent;
+    var availableRooms = roomsList.filter(r => r.studentCount < 3);
     studentList.forEach((stud) => {
         if (stud.id === req.body.studentId) {
             myStudent = stud;
@@ -48,15 +62,30 @@ app.post("/studentDetails", async (req, res) => {
     });
     // console.log(myStudent);
     res.render("studentDetails", {
-        studentData: myStudent
+        studentData: myStudent,
+        allRooms: availableRooms
     });
 });
 
 app.post("/addStudent", async (req, res) => {
-    console.log(req.body);
-    var studentData = { isStaying: true, rentStatus: "paid", ...req.body };
+    // console.log(req.body);
+    var studentRoom = roomsList.find(r => r.roomNo == req.body.room);
+    var studentData = { isStaying: true, rentStatus: "paid", roomId: studentRoom.id, ...req.body };
     addStudent(studentData);
     res.redirect("/students");
+});
+
+app.post("/updateStudent", async (req, res) => {
+    // console.log(req.body);
+    updateStudent(req.body.id, req.body);
+    res.redirect("/students")
+});
+
+app.post("/deleteStudent", async (req, res) => {
+    console.log(req.body);
+    deleteStudent(req.body.studentId);
+    // updateStudent(req.body.id, req.body);
+    res.redirect("/students")
 });
 
 
