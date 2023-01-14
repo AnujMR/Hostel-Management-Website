@@ -1,5 +1,5 @@
 import express from "express";
-import { addStudent, getStudents, addRoom, getRooms, updateStudent, deleteStudent } from "./firebase_config.js";
+import { addStudent, getStudents, addRoom, getRooms, updateStudent, deleteStudent, getExpenses, addExpense } from "./firebase_config.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -23,13 +23,15 @@ app.get("/", async (req, res) => {
 app.get("/dashboard", async (req, res) => {
     studentList = await getStudents();
     roomsList = await getRooms();
+    var expensesList = await getExpenses();
     var noOfStudents = studentList.length;
     var totalRooms = roomsList.length;
-    var noOfoccupiedRooms = roomsList.filter(r=> r.studentCount > 0).length;
+    var noOfoccupiedRooms = roomsList.filter(r=> r.studentCount >= 3).length;
     res.render("dashboard",{
         students: noOfStudents,
         rooms : totalRooms,
-        occupiedRooms : noOfoccupiedRooms
+        occupiedRooms : noOfoccupiedRooms,
+        expenses: expensesList
     });
 });
 
@@ -68,7 +70,7 @@ app.post("/studentDetails", async (req, res) => {
 });
 
 app.post("/addStudent", async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     var studentRoom = roomsList.find(r => r.roomNo == req.body.room);
     var studentData = { isStaying: true, rentStatus: "paid", roomId: studentRoom.id, ...req.body };
     addStudent(studentData);
@@ -89,8 +91,8 @@ app.post("/deleteStudent", async (req, res) => {
 });
 
 
-app.get("/staff.html", async (req, res) => {
-    res.redirect("/public/html/staff.html");
+app.get("/staff", async (req, res) => {
+    res.render("staff");
 });
 
 //  ** Rooms Module **
@@ -141,3 +143,19 @@ app.get("/rooms", async (req, res) => {
 //         room: roomData.roomNo
 //     })
 // });
+
+// Expense Module
+
+app.post("/addNewExpense", async (req, res) => {
+    // console.log(req.body);
+    var currentDate = new Date();
+    var expenseData = {
+        year: currentDate.getFullYear(),
+        month: currentDate.toLocaleDateString('en-US', { month: 'long' }),
+        date: currentDate.getDate(),
+        amount: Number(req.body.amount),
+        title: req.body.title
+    };
+    addExpense(expenseData);
+    res.redirect("/dashboard");
+});

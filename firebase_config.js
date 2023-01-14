@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, addDoc, getDocs, getDoc, doc, updateDoc, increment, deleteDoc } from "firebase/firestore";
-import { getStorage, ref } from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBXEWL4rfFq7MC1aRWoQPta_MtC84J8mVE",
@@ -15,6 +15,8 @@ const firebaseapp = initializeApp(firebaseConfig);
 
 const db = getFirestore(firebaseapp);
 
+const storage = getStorage(firebaseapp);
+
 var allRooms;
 var allStudents;
 var admin;
@@ -28,7 +30,7 @@ export async function addStudent(studentData) {
         const docRef = doc(db, "rooms", studentData.roomId);
         const updatedRoom = await updateDoc(docRef, { studentCount: increment(1) });
 
-        const file = document.querySelector('#file').files[0];
+        const file = studentData.profile;
         console.log(file);
 
         const storage = getStorage();
@@ -62,6 +64,7 @@ export async function addStudent(studentData) {
     }
 }
 
+
 export async function updateStudent(studentId, studentData) {
     try {
 
@@ -88,6 +91,11 @@ export async function updateStudent(studentId, studentData) {
 
 export async function deleteStudent(studentId) {
     try {
+
+        // update old room
+        var oldRoomId = allRooms.find(r => r.roomNo == allStudents.find(s => s.id == studentId).room).id;
+        const oldRoomDoc = doc(db, "rooms", oldRoomId);
+        const oldUpdatedRoom = await updateDoc(oldRoomDoc, { studentCount: increment(-1) });
 
         const studentDoc = doc(db, "students", studentId);
         const updatedRoom = await deleteDoc(studentDoc);
@@ -170,5 +178,50 @@ export async function updateAdmin(adminData) {
         return updatedAdmin;
     } catch (e) {
         console.error("Error updating admin: ", e);
+    }
+}
+
+// Expenses Module
+
+
+export async function addExpense(expenseDetails) {
+    try {
+        const docRef = await addDoc(collection(db, "expenses"), expenseDetails);
+        console.log("Expense added successfully");
+        return { message: "Success" };
+    } catch (e) {
+        console.error("Error adding document: ", e);
+        return { message: "Failed" };
+    }
+}
+
+export async function getExpenses() {
+    try {
+        const expensesCol = collection(db, 'expenses');
+        const expensesSnapshot = await getDocs(expensesCol);
+        var todaysDate = new Date();
+        const expensesList = expensesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).filter(e => e.year == todaysDate.getFullYear());
+        var monthlyExpenses = [];
+
+        for (var i = 0; i < expensesList.length; i++){
+                var existingExpense = monthlyExpenses.find((e) => {
+                    var a = e[0];
+                    var b = expensesList[i].month;
+                    return a === b;
+                });
+                if(!existingExpense){
+                    monthlyExpenses.push([expensesList[i].month, expensesList[i].amount]);
+                }else{
+                    console.log(existingExpense);
+                    existingExpense[1] = existingExpense[1] + expensesList[i].amount;
+                }
+           
+        }
+
+        // console.log(monthlyExpenses);
+        console.log("Expenses fetched successfully");
+        return monthlyExpenses;
+    } catch (e) {
+        console.error("Error fetching expenses: ", e);
     }
 }

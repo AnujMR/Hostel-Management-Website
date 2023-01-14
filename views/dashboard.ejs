@@ -48,7 +48,7 @@
                             id="students_tab">
                             <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
                         </a>
-                        <a href="/staff.html" class="list-group-item list-group-item-action py-6 ripple"
+                        <a href="/staff" class="list-group-item list-group-item-action py-6 ripple"
                             id="staff_tab"><i class="fa-solid fa-users"
                                 style="margin-right: 15px;"></i><span>Staff</span></a>
                     </div>
@@ -81,7 +81,7 @@
             </div>
 
             <div id="expense-graph">
-                <h2 style="font-weight: 500; padding: 20px;">Monthly Expenses (In Rupees)</h2>
+                <h2 id="graph-title" style="font-weight: 500; padding: 20px;">Monthly Expenses (In Rupees)</h2>
             </div>
             <!--Main layout-->
         </div>
@@ -99,12 +99,51 @@
         crossorigin="anonymous"></script>
 
     <script src="/public/js/navbar.js"></script>
-    <script src="/public/js/expenses_graph.js"></script>
+    <!-- <script src="/public/js/expenses_graph.js"></script> -->
     <script>
+        var currentDate = new Date();
+        document.getElementById("graph-title").innerHTML = `Monthly Expenses Of ${currentDate.getFullYear()} (In Rupees)`;
+
         var currentValue = <%= occupiedRooms %>;
             var maxValue = <%= rooms %>;
             document.querySelector("#circular-progress").setAttribute("style", "--value:" + (currentValue / maxValue) * 100);
             // $("#circular-progress").html(currentValue + "/" + maxValue);
+    </script>
+    <script>
+        anychart.onDocumentReady(function () {
+            var data = [];
+           <% for(var i = 0; i < expenses.length; i++){ %>
+                data.push( [`<%= expenses[i][0] %>`, <%= expenses[i][1] %>]);
+           <% } %>
+        //    console.log(data);
+
+                // create a data set
+                var dataSet = anychart.data.set(data);
+
+                // map the data for all series
+                var firstSeriesData = dataSet.mapAs({ x: 0, value: 1 });
+
+                // create a line chart
+                var chart = anychart.line();
+
+                // create the series and name them
+                var firstSeries = chart.line(firstSeriesData);
+                firstSeries.name("Expense");
+
+                // add a legend
+                // chart.legend().enabled(true);
+
+                // // add a title
+                // chart.title("Monthly Expenses");
+
+                // specify where to display the chart
+                chart.container("expense-graph");
+
+                // draw the resulting chart
+                chart.draw();
+
+                firstSeries.normal().stroke("#ff0000", 2);
+            });
     </script>
 </body>
 

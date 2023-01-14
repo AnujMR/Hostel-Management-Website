@@ -20,6 +20,6 @@
 // });
 
 // $('#staff_tab').on('click', function () {
-//     location.replace('/public/html/staff.html');
+//     location.replace('/public/htmlstaff');
 // });
 

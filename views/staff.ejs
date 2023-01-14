@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Staff</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/public/css/bootstrap-4.0.0-dist/css/bootstrap.css">
@@ -44,7 +44,7 @@
                             id="students_tab">
                             <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
                         </a>
-                        <a href="/staff.html" class="list-group-item list-group-item-action py-6 ripple active"
+                        <a href="/staff" class="list-group-item list-group-item-action py-6 ripple active"
                             id="staff_tab"><i class="fa-solid fa-users"
                                 style="margin-right: 15px;"></i><span>Staff</span></a>
                     </div>
@@ -58,15 +58,41 @@
             <main style="margin-top: 58px;">
                 <div class="container pt-4">
 
-                    Staff
-                    Place your content here!
-
+                    <button type="button" id="open-expense-form" style="
+    text-align: center;
+    background-color: #16c851;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 0;
+    margin-top: 70px;
+    min-width: 200px;">Add New Expense</button>
 
                 </div>
             </main>
             <!--Main layout-->
         </div>
     </div>
+
+        <!-- Add Student Form -->
+        <div class="modal-container" id="new-expense-form">
+            <div class="modal-content" style="width: 400px">
+                <h2>Add New Expense</h2>
+                <form action="/addNewExpense" method="post">
+                    <div class="row" style="justify-content: space-between;">
+                        <div class="col">
+                            <h3 style="margin-top: 1rem; margin-bottom: 1px;">Title</h2>
+                            <input type="text" name="title" value="" class="student-details-field" style="width: max-content; width: 100%; display: block;" required>
+                            <h3 style="margin-top: 1rem; margin-bottom: 1px;">Amount (In Rupees)</h2>
+                            <input type="number" name="amount" value="" class="student-details-field" style="width: max-content; width: 100%; display: block;" required>
+                            <button type="submit" class="add-student-btn-save" id="hi">ADD</button>
+                            <button type="reset" class="add-student-btn-close" id="close-expense-form">CANCEL</button>
+                        </div>
+                                 
+                </form>
+            </div>
+        
+        </div>
 
 
 
@@ -80,6 +106,21 @@
         crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="/public/js/navbar.js"></script>
+
+        <!-- Add new expense modal script -->
+        <script>
+            const openModal = document.getElementById('open-expense-form');
+            const closeModal = document.getElementById('close-expense-form');
+            const modal_container = document.getElementById('new-expense-form');
+
+            openModal.addEventListener('click', () => {
+                modal_container.classList.add('show');
+            });
+
+            closeModal.addEventListener('click', () => {
+                modal_container.classList.remove('show');
+            });
+        </script>
 </body>
 
 </html>
