@@ -2,7 +2,7 @@
 // Navigations
 
 // $('#profile_tab').on('click', function () {
-//     location.replace('/public/html/profile.html');
+//     location.replace('/public/html/profile');
 // });
 
 // $('#dashboard_tab').on('click', function () {

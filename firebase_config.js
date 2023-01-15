@@ -20,43 +20,39 @@ const storage = getStorage(firebaseapp);
 var allRooms;
 var allStudents;
 var admin;
+var profilePic;
 
 // ** Student Module **
 
+export function getProfilePic(file) {
+    try {
+        console.log("Hello ji");
+        profilePic = file
+        // getProfilePic(profilePic);
+        console.log(profilePic);
+        // document.getElementById("file").value = profilePic;
+    } catch (e) {
+        console.error("Error getting profile pic: ", e);
+    }
+}
+
 export async function addStudent(studentData) {
     try {
+        console.log(studentData);
+
+        // 'file' comes from the Blob or File API
+        // var uploadResult = await uploadBytes(storageRef, profilePic).then((snapshot) => {
+        //     console.log('Uploaded a blob or file!');
+        // });
+
+        // console.log(uploadResult);
 
         const studDocRef = await addDoc(collection(db, "students"), studentData);
         const docRef = doc(db, "rooms", studentData.roomId);
         const updatedRoom = await updateDoc(docRef, { studentCount: increment(1) });
 
-        const file = studentData.profile;
-        console.log(file);
-
         const storage = getStorage();
-        const storageRef = ref(storage, 'some-child');
-
-        // 'file' comes from the Blob or File API
-        uploadBytes(storageRef, file).then((snapshot) => {
-            console.log('Uploaded a blob or file!');
-        });
-
-        // const ref = getStorage();
-        // const file = document.querySelector('#profile_pic').files[0]
-        // const name = (+new Date()) + '-' + file.name;
-        // const metadata = {
-        //     contentType: file.type
-        // };
-        // const task = ref.child(name).put(file, metadata);
-        // task
-        //     .then(snapshot => snapshot.ref.getDownloadURL())
-        //     .then(async (url) => {
-        //         console.log(url);
-        //         const updatedStudent = await updateDoc(studDocRef, { avatar: url });
-        //         // document.querySelector('#someImageTagID').src = url;
-        //     })
-        //     .catch(console.error);
-
+        const storageRef = ref(storage, "images");
 
         console.log("Student added successfully");
     } catch (e) {
@@ -203,19 +199,19 @@ export async function getExpenses() {
         const expensesList = expensesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })).filter(e => e.year == todaysDate.getFullYear());
         var monthlyExpenses = [];
 
-        for (var i = 0; i < expensesList.length; i++){
-                var existingExpense = monthlyExpenses.find((e) => {
-                    var a = e[0];
-                    var b = expensesList[i].month;
-                    return a === b;
-                });
-                if(!existingExpense){
-                    monthlyExpenses.push([expensesList[i].month, expensesList[i].amount]);
-                }else{
-                    console.log(existingExpense);
-                    existingExpense[1] = existingExpense[1] + expensesList[i].amount;
-                }
-           
+        for (var i = 0; i < expensesList.length; i++) {
+            var existingExpense = monthlyExpenses.find((e) => {
+                var a = e[0];
+                var b = expensesList[i].month;
+                return a === b;
+            });
+            if (!existingExpense) {
+                monthlyExpenses.push([expensesList[i].month, expensesList[i].amount]);
+            } else {
+                console.log(existingExpense);
+                existingExpense[1] = existingExpense[1] + expensesList[i].amount;
+            }
+
         }
 
         // console.log(monthlyExpenses);

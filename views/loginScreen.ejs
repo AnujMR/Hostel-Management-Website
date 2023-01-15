@@ -5,8 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/public/css/bootstrap-4.0.0-dist/css/bootstrap.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/styles.css">
+
 </head>
-<body>
+    <body>
+        <img src="\public\images\hostel-img.jpeg" alt="hostel-image" class="hostel-img">
+
+        <div class="col login-body">
+            <div class="login-form-layout">
+                <div class="login-form-container">
+                    <h1 style="margin-bottom: 40px; text-align: center; ">Admin Login</h1>
+                    <form id="login-form" action="/dashboard" method="get">
+                        <div class="col">
+                            <label for="passwordField" style="display: block;">Enter Password</label>
+                            <input type="password" id="passwordField" style="display: block; width: 100%;">
+                        </div>
+                        <h3 id="incorrect-pass-text" style="font-size: 14px; color: red; display: none; margin-left: 15px;">
+                            Incorrect Password!</h3>
+                        <br>
+                        <div style="text-align: center;">
+                            <button type="submit" class="login-btn">Log In</button>
+                        </div>
+            
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+             var form = document.getElementById("login-form");
+                form.addEventListener('submit', (event) => {
+                    var pass = document.getElementById("passwordField").value;
+                    console.log(pass);
+                    var og = `<%= adminData["password"] %>`;
+                    console.log(og)
+                    if (pass === og) {
+                        document.getElementById("incorrect-pass-text").style.display = "none";
+                    } else {
+                        event.preventDefault();
+                        if(pass === ""){
+                            document.getElementById("incorrect-pass-text").innerHTML = "Please enter password"
+                        }else{
+                            document.getElementById("incorrect-pass-text").innerHTML = "Incorrect Password"
+                        }
+                        document.getElementById("incorrect-pass-text").style.display = "inline";
+                    }
+                });
+           
+        </script>
+    </body>
     
-</body>
 </html>

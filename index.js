@@ -1,5 +1,5 @@
 import express from "express";
-import { addStudent, getStudents, addRoom, getRooms, updateStudent, deleteStudent, getExpenses, addExpense } from "./firebase_config.js";
+import { addStudent, getStudents, addRoom, getRooms, updateStudent, deleteStudent, getExpenses, addExpense, getAdminDetails, updateAdmin } from "./firebase_config.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -17,7 +17,23 @@ app.listen(process.env.PORT || 3000, function () {
 });
 
 app.get("/", async (req, res) => {
-    res.redirect("dashboard");
+    res.redirect("loginScreen");
+});
+
+app.get("/loginScreen", async (req, res) => {
+    var adminData = await getAdminDetails();
+    res.render("loginScreen",{
+        adminData: adminData
+    });
+});
+
+app.post("/changePassword", async (req, res) => {
+    var newPassword = req.body.newPassword;
+    console.log(newPassword);
+    var updatedAdmin = await updateAdmin({
+        password: newPassword
+    });
+    res.redirect("/profile");
 });
 
 app.get("/dashboard", async (req, res) => {
@@ -35,8 +51,12 @@ app.get("/dashboard", async (req, res) => {
     });
 });
 
-app.get("/profile.html", async (req, res) => {
-    res.redirect("/public/html/profile.html");
+app.get("/profile", async (req, res) => {
+    var adminDetails = await getAdminDetails();
+    // console.log(adminDetails);
+    res.render("profile", {
+        adminData: adminDetails
+    });
 });
 
 //  ** Student Module **
@@ -46,7 +66,7 @@ app.get("/students", async (req, res) => {
     roomsList.sort((a, b) => a.roomNo - b.roomNo);
     studentList = await getStudents();
     var availableRooms = roomsList.filter(r => r.studentCount < 3);
-    // console.log(studentList);
+    // console.log(availableRooms);
     res.render("students", {
         allStudents: studentList,
         allRooms: availableRooms

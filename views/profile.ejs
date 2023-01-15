@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/public/css/bootstrap-4.0.0-dist/css/bootstrap.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/7f212a760d.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/public/css/styles.css">
+
+
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-2">
+            <!-- Sidebar -->
+            <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+                <div class="position-sticky">
+                    <div class="list-group list-group-flush mx-3 mt-4">
+                        <a href="/profile" class="list-group-item list-group-item-action py-6 ripple active"
+                            id="profile_tab">
+                            <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
+                        </a>
+                        <a href="/dashboard" class="list-group-item list-group-item-action  py-6 ripple"
+                            id="dashboard_tab"><i class="fa-solid fa-square-poll-vertical"
+                                style="margin-right: 15px;"></i><span>Dashboard</span></a>
+                        <a href="/rooms" class="list-group-item list-group-item-action  py-6 ripple" id="rooms_tab"><i
+                                class="fa-solid fa-building" style="margin-right: 15px;"></i><span>Rooms</span></a>
+                        <a href="/students" class="list-group-item list-group-item-action py-6 ripple"
+                            id="students_tab">
+                            <i class="fa-solid fa-user-graduate" style="margin-right: 15px;"></i><span>Students</span>
+                        </a>
+                        <a href="/staff" class="list-group-item list-group-item-action py-6 ripple"
+                            id="staff_tab"><i class="fa-solid fa-users"
+                                style="margin-right: 15px;"></i><span>Staff</span></a>
+                    </div>
+                </div>
+            </nav>
+            <!-- Sidebar -->
+
+        </div>
+        <div class="col-md-10 screen-padding">
+            <!--Main layout-->
+            <div class="row" style="justify-content: space-between;">
+                <h1 style="padding-bottom: 1rem; display: inline;">Profile </h1>
+                <form action="/loginScreen">
+                    <button type="submit" class="add-student-btn-close" style="display: inline; width: 150px;">Logout <i
+                            class="fa-solid fa-arrow-right-from-bracket" style="margin-left: 10px"></i></button>
+                </form>
+            </div>
+            
+            
+            <form action="" method="post">
+                <div class="row" style=" display: flex; justify-content: space-between; margin-top: 2rem;">
+                    <div class="col-md-5" style="text-align: center;">
+
+                        <!-- Name -->
+                        <div class="row student-details-row">
+                            <h2 style="margin-right: 2rem;">Hostel Name : </h2>
+                            <input readonly type="text" name="name" id="nameField"
+                            class="student-details-field">
+                        </div>
+
+                        <!-- Educational Institute -->
+                        <!-- <div class="row student-details-row">
+                            <h2 style="margin-right: 2rem;">Total Rooms : </h2>
+                            <input readonly type="text" name="institue" id="educationField" 
+                            class="student-details-field">
+                        </div> -->
+              
+                        <!-- Address -->
+                        <div class="row student-details-row">
+                            <h2 style="margin-right: 2rem;">Hostel Address : </h2>
+                            <textarea readonly name="address" id="addressField" cols="23" rows="5" class="student-details-field"
+                                style="text-align: start;"><%=adminData["address"] %></textarea>
+                        </div>
+
+                        <!-- Option Buttons -->
+                        <button type="button" id="open-expense-form" class="profile_section_btn"> <i class="fa-sharp fa-solid fa-dollar-sign" style="margin-right: 10px;"></i> Add New Expense</button>
+                        <button type="button" id="open-password-form" class="profile_section_btn"> <i class="fa-solid fa-key" style="color: white; margin-right: 10px;"></i> Change Password</button>
+                        
+                    </div>
+
+                    </div>
+                </div>
+            </form> 
+        </div>
+        <!--Main layout-->
+    </div>
+
+    <div>
+        <!-- Change Password Form -->
+        <div class="modal-container" id="new-password-form">
+            <div class="modal-content" style="width: 400px">
+                <h2>Change Password</h2>
+                <form action="/changePassword" method="post">
+                    <div class="row" style="justify-content: space-between;">
+                        <div class="col">
+                            <h3 style="margin-top: 1rem; margin-bottom: 1px;">Current Password</h2>
+                                <input type="password" id="old-password" name="currentPassword" class="student-details-field"
+                                    style="width: max-content; width: 100%; display: block; text-align: start;" required>
+                                    <h3 id="incorrect-pass-text" style="font-size: 14px; color: red; display: none;">
+                                        Incorrect Password</h3>
+                                <h3 style="margin-top: 1rem; margin-bottom: 1px;">New Password</h2>
+                                <input type="password" id="new-password" name="newPassword" class="student-details-field"
+                                        style="width: max-content; width: 100%; display: block; text-align: start;" required>
+                                        <h3 id="incorrect-new-pass-text" style="font-size: 14px; color: red; display: none;">
+                                            Incorrect Pattern!</h3>
+                                    <button type="submit" class="add-student-btn-save">Save</button>
+                                    <button type="reset" class="add-student-btn-close" id="close-password-form">CANCEL</button>
+                        </div>
+        
+                </form>
+            </div>
+        
+        </div>
+    </div>
+
+   <div>
+
+    <!-- Add Expense Form -->
+    <div class="modal-container" id="new-expense-form">
+        <div class="modal-content" style="width: 400px">
+            <h2>Add New Expense</h2>
+            <form action="/addNewExpense" method="post">
+                <div class="row" style="justify-content: space-between;">
+                    <div class="col">
+                        <h3 style="margin-top: 1rem; margin-bottom: 1px;">Title</h2>
+                            <input type="text" name="title" value="" class="student-details-field"
+                                style="width: max-content; width: 100%; display: block; text-align: start;" required>
+                            <h3 style="margin-top: 1rem; margin-bottom: 1px;">Amount (In Rupees)</h2>
+                                <input type="number" name="amount" value="" class="student-details-field"
+                                    style="width: max-content; width: 100%; display: block;" required>
+                                <button type="submit" class="add-student-btn-save" id="hi">ADD</button>
+                                <button type="reset" class="add-student-btn-close" id="close-expense-form">CANCEL</button>
+                    </div>
+    
+            </form>
+        </div>
+    </div>
+   </div>
+
+
+
+    <!-- Bootstrap Script -->
+    <script src="/public/css/bootstrap-4.0.0-dist/js/bootstrap.js/>"></script>
+
+    <!-- JQuery SCript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+        integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="/public/js/navbar.js"></script>
+
+    <!-- Change Password modal script -->
+    <script>
+            
+        const openPasswordModal = document.getElementById('open-password-form');
+        const closePasswordModal = document.getElementById('close-password-form');
+        const modal_password_container = document.getElementById('new-password-form');
+
+        openPasswordModal.addEventListener('click', () => {
+            modal_password_container.classList.add('show');
+            modal_container.classList.remove('show');
+        });
+
+        closePasswordModal.addEventListener('click', () => {
+            modal_password_container.classList.remove('show');
+        });
+
+         var form = document.getElementById("new-password-form");
+            form.addEventListener('submit', (event) => {
+                var newPass = document.getElementById("new-password").value;
+                var oldPass = document.getElementById("old-password").value;
+                var og = `<%= adminData["password"] %>`;
+
+                if (oldPass !== og) {
+                    // Current Password is incorrect
+                    document.getElementById("incorrect-pass-text").innerHTML = "Incorrect Password"
+                    document.getElementById("incorrect-pass-text").style.display = "inline";
+                    event.preventDefault();
+                } else {
+                    // Current Password is correct
+                    document.getElementById("incorrect-pass-text").style.display = "none";
+
+                    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+
+                    let result = newPass.match(pattern);
+                    if (!result) {
+                        // New Password is not valid
+                        document.getElementById("incorrect-new-pass-text").innerHTML = "Should include atleast 1 digit, 1 special character & 1 capital letter"
+                        document.getElementById("incorrect-new-pass-text").style.display = "inline";
+                        event.preventDefault();
+                        console.log(`The given password: ${newPass} is weak`);
+                    }else{
+                        // New Password is valid
+                        document.getElementById("incorrect-new-pass-text").style.display = "none";
+                    }
+                }
+            });
+    </script>
+
+    <!-- Add new expense modal script -->
+    <script>
+        const openModal = document.getElementById('open-expense-form');
+        const closeModal = document.getElementById('close-expense-form');
+        const modal_container = document.getElementById('new-expense-form');
+
+        openModal.addEventListener('click', () => {
+            modal_container.classList.add('show');
+            modal_password_container.classList.remove('show');
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal_container.classList.remove('show');
+        });
+    </script>
+
+    <script>
+        var nameField = document.getElementById("nameField");
+        var addressField = document.getElementById("addressField");
+        
+        nameField.value = `<%= adminData["hostel"] %>`; 
+
+        </script>
+</body>
+
+</html>

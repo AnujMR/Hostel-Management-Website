@@ -32,7 +32,7 @@
             <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
-                        <a href="/profile.html" class="list-group-item list-group-item-action py-6 ripple"
+                        <a href="/profile" class="list-group-item list-group-item-action py-6 ripple"
                             id="profile_tab">
                             <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
                         </a>
@@ -160,13 +160,27 @@
                         <div class="row student-details-row">
                             <h2 style="margin-right: 2rem;">Rent Status : </h2>
 
-                            <% if(studentData["rentStatus"]==="paid" ){%>
-                                <div class="rent-status" id="rent_status" style="background-color: #16EB5E;"> PAID
-                                </div>
+                            <% if(studentData["rentStatus"]==="paid" || studentData["rentStatus"]=== "paid" ){%>
+                                <!-- <div class="rent-status" id="rent_status" style="background-color: #16EB5E;"> PAID
+                                </div> -->
+                                <select name="rentStatus" id="rentStatus" onchange="InputChangeListener()" class="rent-status" id="rent_status"
+                                    required>
+                                        <option value="paid" selected style="background-color: white; color: black;">PAID
+                                        </option>
+                                        <option value="overdue" style="background-color: white; color: black;">OVERDUE
+                                        </option>
+                                </select>
                                 <%}else{%>
-                                    <div class="rent-status" id="rent_status" style="background-color: #fb2626;">
+                                    <!-- <div class="rent-status" id="rent_status" style="background-color: #fb2626;">
                                         OVERDUE
-                                    </div>
+                                    </div> -->
+                                    <select name="rentStatus" id="rentStatus" onchange="InputChangeListener()" class="rent-status" id="rent_status" style="background-color: #fb2626;""
+                                        required>
+                                        <option value="paid" style="background-color: white; color: black;">PAID
+                                        </option>
+                                        <option value="overdue" selected style="background-color: white; color: black;">OVERDUE
+                                        </option>
+                                    </select>
                                     <%}%>
 
                         </div>
@@ -236,6 +250,7 @@
         var emergencyField = document.getElementById("emergencyField");
         var dobField = document.getElementById("dobField");
         var addressField = document.getElementById("addressField");
+        var rentStatusField= document.getElementById("rentStatus");
         
         nameField.value = `<%= studentData["name"] %>`;
         institueField.value = `<%= studentData["institue"] %>`;
@@ -250,6 +265,7 @@
                 nameField_default = nameField.defaultValue;
                 institueField_default = institueField.defaultValue;
                 roomField_default = roomField.defaultValue;
+                rentStatus_default = rentStatus.defaultValue;
                 emailField_default = emailField.defaultValue;
                 mobileField_default = mobileField.defaultValue;
                 emergencyField_default = emergencyField.defaultValue;
@@ -266,7 +282,8 @@
                     mobileField.value != mobileField_default ||
                     emergencyField.value != emergencyField_default ||
                     dobField.value != dobField_default ||
-                    addressField.value != addressField_default 
+                    addressField.value != addressField_default || 
+                    rentStatus.value != rentStatus_default 
                 ) {
                     flag = 1;
                 }

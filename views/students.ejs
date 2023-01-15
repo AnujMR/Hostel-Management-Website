@@ -33,7 +33,7 @@
             <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
                 <div class="position-sticky">
                     <div class="list-group list-group-flush mx-3 mt-4">
-                        <a href="/profile.html" class="list-group-item list-group-item-action py-6 ripple"
+                        <a href="/profile" class="list-group-item list-group-item-action py-6 ripple"
                             id="profile_tab">
                             <i class="fa-solid fa-user" style="margin-right: 15px;"></i></i><span>Profile</span>
                         </a>
@@ -156,9 +156,9 @@
                                 <span class="glyphicon glyphicon-camera"></span>
                                 <span>Change Image</span>
                             </label>
-                            <input id="file" name="profile" type="file" onchange="loadFile(event)" />
-                            <img src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"
-                                id="profile_pic" width="9rem" />
+                            <input id="file" name="profile" type="file" onchange="loadProfilePic(event)" accept="image/png, image/jpeg, image/jpg" />
+                            <img src="/public/images/profile-image.jpg"
+                                id="profile_pic" width="9rem" style="border: 1px solid rgb(202, 196, 196);" />
                         </div>
                         <!-- <div class="col" style="text-align: center; margin-top: 2rem;">
                             <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle"
@@ -194,9 +194,6 @@
     <script src="/public/css/bootstrap-4.0.0-dist/js/bootstrap.js/>"></script>
     <script src="/public/css/bootstrap-4.0.0-dist/js/bootstrap.min.js/>"></script>
 
-    <script type="text/javascript" src="/public/js/navbar.js"></script>
-    <script type="text/javascript" src="/public/js/student_management.js"></script>
-
     <!-- Add student modal script -->
     <script>
         const openModal = document.getElementById('openModal');
@@ -214,15 +211,19 @@
 
 
     <!-- Profile Pic script -->
-    <script>
-        var loadFile = function (event) {
-            var image = document.getElementById("profile_pic");
-            image.src = URL.createObjectURL(event.target.files[0]);
+    <script type="module">
+        import { getPic } from './student_management.js';
 
-            var input = event.target;
-            var file = input.files[0];
-            console.log(file);
-        };
+        function loadProfilePic(event){
+            try {
+                console.log("Hello ji");
+                var profilePic = event.target.files[0];
+                console.log(profilePic);
+            } catch (e) {
+                console.error("Error getting profile pic: ", e);
+            }
+        }
+        
 
     </script>
 
@@ -242,6 +243,9 @@
             }
         }
     </script>
+
+<script src="./student_management.js"></script>
+    
 
 </body>
 
