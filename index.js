@@ -8,6 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.use(express.urlencoded({ extended: true }));
 app.use("/public", express.static('public'));
+app.use(express.json());
 app.set("view engine", "ejs");
 var studentList = [];
 var roomsList = [];
@@ -18,6 +19,11 @@ app.listen(process.env.PORT || 3000, function () {
 
 app.get("/", async (req, res) => {
     res.redirect("loginScreen");
+});
+
+app.post("/uploadProfilePic", async (req, res)=>{
+    console.log("Uploading..........");
+    console.log(req.body);
 });
 
 app.get("/loginScreen", async (req, res) => {

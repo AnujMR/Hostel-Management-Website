@@ -27,8 +27,7 @@ var profilePic;
 export function getProfilePic(file) {
     try {
         console.log("Hello ji");
-        profilePic = file
-        // getProfilePic(profilePic);
+        profilePic = file;
         console.log(profilePic);
         // document.getElementById("file").value = profilePic;
     } catch (e) {
